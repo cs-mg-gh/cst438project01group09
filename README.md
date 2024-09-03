@@ -17,4 +17,4 @@ By Luke Berry, Matthew Garcia, Kyle Lynn, and Diego Zavala
 3. Navigate into repository
 4. npm install expo (or sudo npm install expo)
 5. Navigate into Weather/ folder
-6. npm start
+6. npm start 

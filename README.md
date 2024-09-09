@@ -1,6 +1,12 @@
 # Weather
 Project 1 for CST 438
-By Luke Berry, Matthew Garcia, Kyle Lynn, and Diego Zavala
+By Luke Berry(LukeBerryCS): [https://github.com/LukeBerryCS](url), 
+Matthew Garcia(cs-mg-gh): [https://github.com/cs-mg-gh](url), 
+Kyle Lynn(KyleKrack): [https://github.com/KyleKrack](url), and
+Diego Zavala(diezavala): [https://github.com/diezavala](url)
+
+### About
+This Android app built using React Native is a weather app allowing the user to create or log in to an existing account. Then they will be able to access many features like checking past, current, and future weather forecasts, viewing a weather forecast map, and viewing other cities' weather.
 
 ### Project Setup
 #### Windows

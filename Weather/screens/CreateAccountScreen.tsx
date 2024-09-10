@@ -1,6 +1,9 @@
 import { Alert, Button, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import React, { useState, version } from 'react';
 import { useNavigation } from "@react-navigation/native";
+import { addUsers } from "../db-folder/db-service";
+import * as SQLite from 'expo-sqlite';
+
 
 
 const LoginScreen = () => {
@@ -9,7 +12,7 @@ const LoginScreen = () => {
     const [password, setPassword] = useState('')
     const [rePassword, setRePassword] = useState('')
     
-    const createButton = () =>{
+    const createButton = async () =>{
         if(!username || !password || !rePassword){
             Alert.alert("All fields must be filled out");
             return;
@@ -21,11 +24,16 @@ const LoginScreen = () => {
             Alert.alert("Password too short, must be 5 characters long");
             return;
         }
+        try{
+            await addUsers(username, password);
+            Alert.alert("Account Created Succesfully");
+            navigation.navigate('Login');
+          }catch(error){
+            console.log("Error creating account");
+          }
 
-        Alert.alert("Account Created Succesfully");
-        navigation.navigate('Login');
     }
-
+    
     return(
         <KeyboardAvoidingView
         style={styles.container}
@@ -64,7 +72,9 @@ const LoginScreen = () => {
                 onPress={createButton}>
                     <Text style={styles.buttonText}>Create Account</Text>
                 </TouchableOpacity>
+
             </View>
+            
 
             <View style={styles.bottomContainer}>
                 <TouchableOpacity

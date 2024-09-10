@@ -2,19 +2,47 @@ import { Alert, Button, KeyboardAvoidingView, Platform, StyleSheet, Text, TextIn
 import React, { useState, version } from 'react';
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-
+import App from "../App";
+import { dbStart, resetDB } from "../db-folder/db-service";
+import * as SQLite from 'expo-sqlite';
 
 const LoginScreen = () => {
     const navigation = useNavigation();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-
+    
     const loginButton = () =>{
         if(!username || !password){
             Alert.alert("All fields must be filled");
             return;
         }
         navigation.navigate('Home');
+        
+    }
+    
+    const debugReset = async() =>{
+        try{
+            await resetDB();
+            alert("Database has been cleared");
+        }catch(error){
+            console.log(`Error resetting: ${error}`);
+        }
+    }
+
+
+    const showUsers = async(tableName: string)=>{
+        try{
+            let db = await SQLite.openDatabaseAsync('WeatherDB');
+            let query = `SELECT * FROM ${tableName}`;
+            let rows = await db.getAllAsync(query);
+            let strings = `Viewing: ${tableName}\n`;
+            for (let row of rows){
+                strings += `${JSON.stringify(row)}\n`;
+            }
+            alert(strings);
+        }catch(error){
+            alert(error);
+        }
     }
 
     return(
@@ -48,6 +76,7 @@ const LoginScreen = () => {
             </View>
 
             <View style={styles.bottomContainer}>
+            <Button title="View Users" onPress={()=>showUsers("user")}></Button>
                 <View style={styles.bottom}>
                     <TouchableOpacity
                     onPress={() => {
@@ -58,6 +87,7 @@ const LoginScreen = () => {
                 </View>
             </View>
         </View>
+        <Button title="DEBUG ONLY: RESET" onPress={()=>resetDB()}></Button>
         </KeyboardAvoidingView>
         
     );

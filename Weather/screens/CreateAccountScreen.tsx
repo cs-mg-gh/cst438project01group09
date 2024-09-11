@@ -1,6 +1,8 @@
-import { Alert, Button, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import React, { useState, version } from 'react';
+import { Alert, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import React, { useState } from 'react';
 import { useNavigation } from "@react-navigation/native";
+
+import { addUsers, checkIfUserExists } from "../db-folder/db-service";
 
 
 const LoginScreen = () => {
@@ -9,23 +11,40 @@ const LoginScreen = () => {
     const [password, setPassword] = useState('')
     const [rePassword, setRePassword] = useState('')
     
-    const createButton = () =>{
-        if(!username || !password || !rePassword){
+    const createButton = async () =>{
+        const trimmedUsername = username.trimEnd();
+        const trimmedPassword = password.trimEnd()
+        const trimmedRePassword = rePassword.trimEnd()
+
+        if(!trimmedUsername || !trimmedPassword || !trimmedRePassword){
             Alert.alert("All fields must be filled out");
             return;
         }
-        if(password != rePassword){
+        if(trimmedPassword != trimmedRePassword){
             Alert.alert("Passwords must match");
             return;
-        }else if(password.length < 5){
+        }else if(trimmedPassword.length < 5){
             Alert.alert("Password too short, must be 5 characters long");
             return;
         }
+        try{
 
-        Alert.alert("Account Created Succesfully");
-        navigation.navigate('Login');
+            let check = await checkIfUserExists(trimmedUsername);
+            if(check){
+                Alert.alert("This username already exists, choose another.")
+            }
+            else{
+                await addUsers(trimmedUsername, trimmedPassword);
+                Alert.alert("Account Created Succesfully");
+                navigation.navigate('Login');
+            }
+          }catch(error){
+            console.log(`ERROR creating account: ${error}`);
+
+          }
+
     }
-
+    
     return(
         <KeyboardAvoidingView
         style={styles.container}
@@ -64,7 +83,9 @@ const LoginScreen = () => {
                 onPress={createButton}>
                     <Text style={styles.buttonText}>Create Account</Text>
                 </TouchableOpacity>
+
             </View>
+            
 
             <View style={styles.bottomContainer}>
                 <TouchableOpacity
@@ -128,7 +149,7 @@ const styles = StyleSheet.create({
     },
     linkText:{
         color: 'teal',
-        fontSize: 22,
+        fontSize: 25,
         
     },
     bottomContainer:{

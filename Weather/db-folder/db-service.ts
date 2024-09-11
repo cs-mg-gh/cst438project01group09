@@ -17,7 +17,6 @@ export async function addUsers(username:string,password:string){
     let add = await db.runAsync('INSERT INTO user (username, password) VALUES (?, ?)', username, password);
     return add;
 }
-
 export async function checkCredentials(username: string, password: string){
   const db = await SQLite.openDatabaseAsync('WeatherDB');
   const query =  await db.getAllAsync('SELECT * FROM user WHERE username = ? AND password=?', [username, password]); 
@@ -39,6 +38,7 @@ export async function checkIfUserExists(username: string){
     return query[0];
   }
 }
+
 
 export async function resetDB(){
   const db = await SQLite.openDatabaseAsync('WeatherDB');

@@ -1,6 +1,7 @@
 import { Alert, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import React, { useState } from 'react';
 import { useNavigation } from "@react-navigation/native";
+
 import { addUsers, checkIfUserExists } from "../db-folder/db-service";
 
 
@@ -27,6 +28,7 @@ const LoginScreen = () => {
             return;
         }
         try{
+
             let check = await checkIfUserExists(trimmedUsername);
             if(check){
                 Alert.alert("This username already exists, choose another.")
@@ -38,6 +40,7 @@ const LoginScreen = () => {
             }
           }catch(error){
             console.log(`ERROR creating account: ${error}`);
+
           }
 
     }

@@ -35,6 +35,7 @@ const LoginScreen = () => {
             Alert.alert(`ERROR logging in: ${error}`);
         }
         
+
     }
 
     return(
@@ -68,6 +69,7 @@ const LoginScreen = () => {
             </View>
 
             <View style={styles.bottomContainer}>
+            <Button title="View Users" onPress={()=>showUsers("user")}></Button>
                 <View style={styles.bottom}>
                     <TouchableOpacity
                     onPress={() => {
@@ -84,6 +86,7 @@ const LoginScreen = () => {
                 </View>
             </View>
         </View>
+        <Button title="DEBUG ONLY: RESET" onPress={()=>resetDB()}></Button>
         </KeyboardAvoidingView>
         
     );

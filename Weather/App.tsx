@@ -59,6 +59,7 @@ interface WeatherData {
 
 export function getWeatherStackKey(): string {
   let key = WEATHERSTACK_KEY
+  console.log(key);
   return key
 };
 

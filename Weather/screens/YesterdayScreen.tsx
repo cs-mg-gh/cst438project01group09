@@ -1,9 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {getWeatherStackKey} from '../App';
-// import {WEATHERSTACK_KEY} from '../@env';
 
 const WEATHERSTACK_KEY = getWeatherStackKey();
+console.log("Yesterday:" + WEATHERSTACK_KEY)
 
 async function getYesterdayWeather() {
     const url = new URL('http://api.weatherstack.com/historical')
@@ -59,7 +59,7 @@ async function getYesterdayWeather() {
             'uv_index': 0,
             'visibility' : 0,
             'weather_descriptions': [''],
-            'weather_icons': [''],
+            'weather_icons': ['https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Fwhite-color&psig=AOvVaw20mdQpESb5llZIbP6g2hoA&ust=1726247263634000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCOD_mKnyvYgDFQAAAAAdAAAAABAI'],
             'wind_dir': '',
             'wind_speed': 0,
             'windgust': 0}
@@ -74,16 +74,11 @@ const YesterdayScreen = () => {
         uv_index: 0,
         visibility: 0,
         weather_descriptions: [''],
-        weather_icons: [''],
+        weather_icons: ['https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Fwhite-color&psig=AOvVaw20mdQpESb5llZIbP6g2hoA&ust=1726247263634000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCOD_mKnyvYgDFQAAAAAdAAAAABAI'],
         wind_dir: '',
         wind_speed: 0,
         windgust: 0
     });
-
-    const getWeatherData = async () => {
-        const data = await getYesterdayWeather();
-        setWeatherData(data);
-    }
 
     useEffect(() => {
         // Automatically fetch weather data when component mounts

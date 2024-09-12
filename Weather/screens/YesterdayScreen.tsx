@@ -1,24 +1,108 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, {useState} from 'react';
-import {getYesterdayWeather} from '../App';
+import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {getWeatherStackKey} from '../App';
+// import {WEATHERSTACK_KEY} from '../@env';
+
+const WEATHERSTACK_KEY = getWeatherStackKey();
+
+async function getYesterdayWeather() {
+    const url = new URL('http://api.weatherstack.com/historical')
+    url.searchParams.append('access_key', WEATHERSTACK_KEY);
+    url.searchParams.append('query', '93933')
+
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    let day = (yesterday.getDate()).toString();
+    if (day.length == 1) {
+        day = '0' + day.toString()
+    }
+    let month = (yesterday.getMonth() + 1).toString();
+    if (month.length == 1) {
+        month = '0' + month.toString()
+    }
+    const year = yesterday.getFullYear();
+    const formattedYesterday = year + "-" + month + "-" + day;
+    const currentTime = today.getHours();
+    const formattedTime = Math.floor(currentTime / 3)
+
+    url.searchParams.append('historical_date', formattedYesterday)
+    url.searchParams.append('hourly', '1')
+    url.searchParams.append('units', 'f')
+    try {
+        const response = await fetch(
+            url
+        );
+        const json = await response.json();
+        const yesterdayData = json.historical[formattedYesterday]['hourly'][formattedTime]
+
+        return {
+            'chanceofrain': yesterdayData['chanceofrain'],
+            'feelslike': yesterdayData['feelslike'],
+            'humidity': yesterdayData['humidity'],
+            'temperature': yesterdayData['temperature'],
+            'uv_index': yesterdayData['uv_index'],
+            'visibility' : yesterdayData['visibility'],
+            'weather_descriptions': yesterdayData['weather_descriptions'],
+            'weather_icons': yesterdayData['weather_icons'],
+            'wind_dir': yesterdayData['wind_dir'],
+            'wind_speed': yesterdayData['wind_speed'],
+            'windgust': yesterdayData['windgust']
+        };
+    } catch (error) {
+        console.error('Error fetching weather data:', error);
+    }
+    return {'chanceofrain': 0,
+            'feelslike': 0,
+            'humidity': 0,
+            'temperature': 0,
+            'uv_index': 0,
+            'visibility' : 0,
+            'weather_descriptions': [''],
+            'weather_icons': [''],
+            'wind_dir': '',
+            'wind_speed': 0,
+            'windgust': 0}
+}
 
 const YesterdayScreen = () => {
+    const [weatherData, setWeatherData] = useState({
+        chanceofrain: 0,
+        feelslike: 0,
+        humidity: 0,
+        temperature: 0,
+        uv_index: 0,
+        visibility: 0,
+        weather_descriptions: [''],
+        weather_icons: [''],
+        wind_dir: '',
+        wind_speed: 0,
+        windgust: 0
+    });
 
-    const [minTemp, setMinTemp] = useState(0);
-    const [avgTemp, setAvgTemp] = useState(0);
-    const [maxTemp, setMaxTemp] = useState(0);
+    const getWeatherData = async () => {
+        const data = await getYesterdayWeather();
+        setWeatherData(data);
+    }
+
+    useEffect(() => {
+        // Automatically fetch weather data when component mounts
+        const fetchWeather = async () => {
+            const data = await getYesterdayWeather();
+            setWeatherData(data);
+        };
+        fetchWeather();
+    }, []);
 
     return (
         <View style={styles.container}>
-            <Text>Welcome to the Yesterday Screen!</Text>
-            <View style={styles.yesterdayButton}>
-            <TouchableOpacity onPress={getYesterdayWeather}>
-                <Text style={styles.buttonText}>Get Weather</Text>
-            </TouchableOpacity>
+            <Text>Yesterday's Weather!</Text>
+            <View>
+                <Image style = {{width: 100, height: 100}} source= {{uri: weatherData.weather_icons[0]}}></Image>
             </View>
-            <Text>{minTemp}</Text> 
-            <Text>{avgTemp}</Text>
-            <Text>{maxTemp}</Text>
+            <Text>Temperature: {weatherData.temperature}</Text> 
+            <Text>UV: {weatherData.uv_index}</Text>
+            <Text>Wind speed: {weatherData.wind_speed}</Text>
         </View>
     );
 };

@@ -23,24 +23,23 @@ export default function App() {
   );
 }
 
-export async function getYesterdayWeather(): Promise<void> {
-  const url = new URL('http://api.weatherstack.com/historical')
-  url.searchParams.append('access_key', WEATHERSTACK_KEY);
-  url.searchParams.append('query', '93933')
-  url.searchParams.append('historical_date', '2015-01-21')
-  url.searchParams.append('hourly', '1')
+interface WeatherData {
+  chanceofrain: number;
+  feelslike: number;
+  humidity: number; 
+  temperature: number; 
+  uv_index: number; 
+  visibility: number; 
+  weather_descriptions: string[];
+  weather_icons: string[];
+  wind_dir: string;
+  wind_speed: number; 
+  windgust: number; 
+}
 
-  try {
-      const response = await fetch(
-          url
-      );
-      const json = await response.json();
-      console.log(json);
-      return json;
-  } catch (error) {
-      console.error('Error fetching weather data:', error);
-  }
-  return;
+export function getWeatherStackKey(): string {
+  let key = WEATHERSTACK_KEY
+  return key
 };
 
 const styles = StyleSheet.create({

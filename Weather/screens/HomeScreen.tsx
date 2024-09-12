@@ -14,7 +14,6 @@ const HomeScreen = () => {
     
     const { username } = userContext;
 
-    return(
     const YesterdayButton = () =>{
         navigation.navigate('Yesterday');
     }

@@ -14,7 +14,7 @@ const LoginScreen = () => {
             Alert.alert("All fields must be filled");
             return;
         }
-        navigation.navigate('Home');
+        navigation.navigate('MapDisplay'); //changed temporarily  from 'Home' to test map display
     }
 
     return(

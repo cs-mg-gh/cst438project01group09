@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "apis": [
+    {
+      "identifier": "climacell-docs",
+      "source": "@climacell-docs/v4.0.1#3wgz617lyr67smb",
+      "integrity": "sha512-7kB6zZOtKB5afM1utoXmL6jtO1cWIweKigX/Vdm1RjmY6JY6paSRb6efJTR9/jX1SkqV9QeCzPqnK95DLgNMGQ==",
+      "installerVersion": "6.1.2"
+    }
+  ]
+}

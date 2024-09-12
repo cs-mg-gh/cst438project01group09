@@ -15,10 +15,6 @@ const HomeScreen = () => {
     const { username } = userContext;
 
     return(
-        <View style={styles.container}>
-            <Text>Welcome to the Home Screen!</Text>
-            <Text style={styles.welcomeText}>Welcome {username}</Text>
-  
     const YesterdayButton = () =>{
         navigation.navigate('Yesterday');
     }

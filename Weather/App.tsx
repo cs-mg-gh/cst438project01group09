@@ -55,6 +55,7 @@ interface WeatherData {
   wind_dir: string;
   wind_speed: number; 
   windgust: number; 
+  location: string;
 }
 
 export function getWeatherStackKey(): string {

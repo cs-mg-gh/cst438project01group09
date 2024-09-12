@@ -1,20 +1,41 @@
-import { Alert, Button, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import React, { useState, version } from 'react';
+import { Alert, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import React, { useContext, useState } from 'react';
 import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-
+import { checkCredentials } from "../db-folder/db-service";
+import { UserContext } from "../UserContext";
 
 const LoginScreen = () => {
     const navigation = useNavigation();
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+    const userContext = useContext(UserContext);
+    if(!userContext){
+        throw new Error('Error');
+    }
+    const { setUsername } = userContext;
 
-    const loginButton = () =>{
-        if(!username || !password){
+    const [inputUsername, setInputUsername] = useState('')
+    const [password, setPassword] = useState('')
+    
+    const loginButton = async () =>{
+        if(!inputUsername || !password){
             Alert.alert("All fields must be filled");
             return;
         }
-        navigation.navigate('Home');
+        const trimmedUsername = inputUsername.trimEnd();
+        const trimmedPassword = password.trimEnd()
+        try{
+            let user = await checkCredentials(trimmedUsername, trimmedPassword);
+            if(user && user.username == trimmedUsername && user.password == trimmedPassword){
+                setUsername(trimmedUsername);
+                navigation.navigate('Home');
+            }else{
+                Alert.alert("Invalid credentials")
+            }
+        }catch(error){
+            console.log(`ERROR logging in: ${error}`);
+            Alert.alert(`ERROR logging in: ${error}`);
+        }
+        
+
     }
 
     return(
@@ -29,8 +50,8 @@ const LoginScreen = () => {
                 <TextInput
                     style={styles.input}
                     placeholder="Enter Username"
-                    onChangeText={setUsername}
-                    value={username}
+                    onChangeText={setInputUsername}
+                    value={inputUsername}
                 />
 
                 <Text style={styles.label}>Password: </Text>
@@ -48,6 +69,7 @@ const LoginScreen = () => {
             </View>
 
             <View style={styles.bottomContainer}>
+            <Button title="View Users" onPress={()=>showUsers("user")}></Button>
                 <View style={styles.bottom}>
                     <TouchableOpacity
                     onPress={() => {
@@ -55,9 +77,16 @@ const LoginScreen = () => {
                     }} >
                         <Text style={styles.linkText}>Create Account</Text>
                     </TouchableOpacity>
+                    <TouchableOpacity
+                    onPress={() => {
+                        navigation.navigate('Debug');
+                    }} >
+                        <Text style={styles.linkTextDebug}>Debug</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>
+        <Button title="DEBUG ONLY: RESET" onPress={()=>resetDB()}></Button>
         </KeyboardAvoidingView>
         
     );
@@ -78,7 +107,7 @@ const styles = StyleSheet.create({
     title:{
         fontSize: 25,
         fontFamily: 'monospace',
-        paddingBottom: 20,
+        paddingBottom: 25,
         paddingTop: 20
     },
     input:{
@@ -105,6 +134,12 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     linkText:{
+        color: 'teal',
+        fontSize: 25,
+        paddingBottom: 35,
+        
+    },
+    linkTextDebug:{
         color: 'teal',
         fontSize: 22,
         

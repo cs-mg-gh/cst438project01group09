@@ -1,10 +1,24 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
-import { useNavigation } from "@react-navigation/native";
 
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
+import { UserContext } from "../UserContext";
+import React, { useContext, useState, version } from 'react';        
+        
 const HomeScreen = () => {
     const navigation = useNavigation();
 
+    const userContext = useContext(UserContext);
+    if(!userContext){
+        throw new Error('User Context Error');
+    }
+    
+    const { username } = userContext;
+
+    return(
+        <View style={styles.container}>
+            <Text>Welcome to the Home Screen!</Text>
+            <Text style={styles.welcomeText}>Welcome {username}</Text>
+  
     const YesterdayButton = () =>{
         navigation.navigate('Yesterday');
     }
@@ -38,6 +52,11 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 16, 
     },
+        welcomeText:{
+        marginTop: 25,
+        fontSize: 26,
+        fontWeight: 'bold',
+    }
 });
-
 export default HomeScreen;
+

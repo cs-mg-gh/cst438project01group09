@@ -80,7 +80,7 @@ const LoginScreen = () => {
                     onPress={() => {
                         navigation.navigate('Debug');
                     }} >
-                        <Text style={styles.linkTextDebug}>Debug</Text>
+                        <Text style={styles.linkTextDebug}>Edit Account</Text>
                     </TouchableOpacity>
                 </View>
             </View>

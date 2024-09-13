@@ -3,8 +3,7 @@ import { useNavigation } from "@react-navigation/native"
 import * as SQLite from 'expo-sqlite';
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 
-//This screen is here for us to debug, will be removed for final submission and presentation//
-const DebugScreen = () => {
+const EditOptionsScreen = () => {
     const navigation = useNavigation();
 
     const debugReset = async() =>{
@@ -33,6 +32,27 @@ const DebugScreen = () => {
 
     return(
         <View style={styles.container}>
+            <View style={styles.formContainer}>
+            <Text style={styles.title}>Update Password</Text>
+            <TouchableOpacity
+                onPress={() => {
+                    navigation.navigate('EditUsername');
+                }} >
+                    <Text style={styles.linkText}>Edit Username</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                onPress={() => {
+                    navigation.navigate('EditPassword');
+                }} >
+                    <Text style={styles.linkText}>Edit Password</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                onPress={() => {
+                    navigation.navigate('DeleteAccount');
+                }} >
+                    <Text style={styles.linkText}>Account Deletion</Text>
+                </TouchableOpacity>
+            <View style={styles.bottomContainer}>
             <TouchableOpacity style={styles.button} onPress={()=>showUsers("users")}>
                 <Text style={styles.buttonText}>View Users</Text>
             </TouchableOpacity>
@@ -40,6 +60,8 @@ const DebugScreen = () => {
             <TouchableOpacity style={styles.button} onPress={()=>debugReset()}>
                 <Text style={styles.buttonText}>CLEAR DATABASE AND RESET</Text>
             </TouchableOpacity>
+            </View>
+            </View>
         </View>
     );
 
@@ -51,6 +73,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
+    marginTop: 20
+    },
+    formContainer:{
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+        paddingTop: 25,
+    },title:{
+        fontSize: 25,
+        fontFamily: 'monospace',
+        paddingBottom: 20,
+        paddingTop: 100,
     },
     button:{
         backgroundColor: 'teal',
@@ -68,6 +103,18 @@ const styles = StyleSheet.create({
     },
     spaced:{
         height: 20,
+    },
+    bottomContainer:{
+        flex: 1,
+        justifyContent: 'flex-end',
+        paddingBottom: 20,
+    },
+    linkText:{
+        color: 'teal',
+        fontSize: 25,
+        paddingBottom: 10,
+        paddingTop: 20,
+        
     }
 });
-export default DebugScreen
+export default EditOptionsScreen

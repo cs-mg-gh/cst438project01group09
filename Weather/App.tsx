@@ -28,15 +28,17 @@ export default function App() {
     startDB();
   },[]);
 
+  // temporarily moved yesterday to top of stack
+
+ //<Stack.Screen name='Home' component={HomeScreen}/>
+ //       <Stack.Screen name='Login' component={LoginScreen}/>
+ //       <Stack.Screen name='CreateAccount' component={CreateAccountScreen}/>
+ //       <Stack.Screen name='Debug' component={DebugScreen}/>
   return (
     <UserProvider>
       <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name='Home' component={HomeScreen}/>
-        <Stack.Screen name='Login' component={LoginScreen}/>
-        <Stack.Screen name='CreateAccount' component={CreateAccountScreen}/>
-        <Stack.Screen name='Debug' component={DebugScreen}/>
-        <Stack.Screen name='Yesterday' component={YesterdayScreen}/>
+        <Stack.Screen name='Yesterday' component={YesterdayScreen}/> 
       </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>

@@ -6,12 +6,15 @@ import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import CreateAccountScreen from './screens/CreateAccountScreen';
 import YesterdayScreen from './screens/YesterdayScreen';
+import EditUsernameScreen from './screens/EditUsernameScreen';
+import DeleteAccountScreen from './screens/DeleteAccountScreen';
 import {WEATHERSTACK_KEY} from '@env';
-import DebugScreen from './screens/DebugScreen';
+import DebugScreen from './screens/EditOptionsScreen';
 import * as SQLite from 'expo-sqlite';
 import { useState, useEffect } from 'react';
 import { dbStart } from './db-folder/db-service';
 import { UserProvider } from './UserContext';
+import EditPasswordScreen from './screens/EditPasswordScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +38,9 @@ export default function App() {
         <Stack.Screen name='Home' component={HomeScreen}/>
         <Stack.Screen name='Login' component={LoginScreen}/>
         <Stack.Screen name='CreateAccount' component={CreateAccountScreen}/>
+        <Stack.Screen name='EditUsername' component={EditUsernameScreen}/>
+        <Stack.Screen name='EditPassword' component={EditPasswordScreen}/>
+        <Stack.Screen name='DeleteAccount' component={DeleteAccountScreen}/>
         <Stack.Screen name='Debug' component={DebugScreen}/>
         <Stack.Screen name='Yesterday' component={YesterdayScreen}/>
       </Stack.Navigator>

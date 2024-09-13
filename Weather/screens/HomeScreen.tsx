@@ -26,6 +26,14 @@ const HomeScreen = () => {
                 <Text style={styles.buttonText}>Yesterday's Weather</Text>
             </TouchableOpacity>
             </View>
+            {/* <View style={styles.bottomContainer}>
+                <TouchableOpacity
+                onPress={() => {
+                    navigation.navigate('EditAccount');
+                }} >
+                    <Text style={styles.linkText}>Edit Account</Text>
+                </TouchableOpacity>
+            </View> */}
         </View>
     );
 };
@@ -51,6 +59,16 @@ const styles = StyleSheet.create({
         marginTop: 25,
         fontSize: 26,
         fontWeight: 'bold',
+    },
+    bottomContainer:{
+        flex: 1,
+        justifyContent: 'flex-end',
+        paddingBottom: 20,
+    },
+    linkText:{
+        color: 'teal',
+        fontSize: 25,
+        
     }
 });
 export default HomeScreen;

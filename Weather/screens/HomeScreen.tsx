@@ -26,14 +26,6 @@ const HomeScreen = () => {
                 <Text style={styles.buttonText}>Yesterday's Weather</Text>
             </TouchableOpacity>
             </View>
-            {/* <View style={styles.bottomContainer}>
-                <TouchableOpacity
-                onPress={() => {
-                    navigation.navigate('EditAccount');
-                }} >
-                    <Text style={styles.linkText}>Edit Account</Text>
-                </TouchableOpacity>
-            </View> */}
         </View>
     );
 };

@@ -6,6 +6,7 @@ import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import CreateAccountScreen from './screens/CreateAccountScreen';
 import YesterdayScreen from './screens/YesterdayScreen';
+import CurrentWeatherScreen from './screens/CurrentWeatherScreen';
 import {WEATHERSTACK_KEY} from '@env';
 import DebugScreen from './screens/DebugScreen';
 import * as SQLite from 'expo-sqlite';
@@ -37,6 +38,7 @@ export default function App() {
         <Stack.Screen name='CreateAccount' component={CreateAccountScreen}/>
         <Stack.Screen name='Debug' component={DebugScreen}/>
         <Stack.Screen name='Yesterday' component={YesterdayScreen}/>
+        <Stack.Screen name='CurrentWeather' component={CurrentWeatherScreen}/>
       </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>

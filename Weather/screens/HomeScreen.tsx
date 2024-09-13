@@ -18,10 +18,19 @@ const HomeScreen = () => {
         navigation.navigate('Yesterday');
     }
 
+    const CurrentButton = () =>{
+        navigation.navigate('CurrentWeather');
+    }
+
     return (
         <View style={styles.container}>
             <Text>Welcome to the Home Screen!</Text>
-            <View style={styles.yesterdayButton}>
+            <View style={styles.screenButton}>
+            <TouchableOpacity onPress={CurrentButton}>
+                <Text style={styles.buttonText}>Today's Weather</Text>
+            </TouchableOpacity>
+            </View>
+            <View style={styles.screenButton}>
             <TouchableOpacity onPress={YesterdayButton}>
                 <Text style={styles.buttonText}>Yesterday's Weather</Text>
             </TouchableOpacity>
@@ -36,12 +45,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    yesterdayButton: {
+    screenButton: {
         backgroundColor: 'blue',
         padding: 10,
         borderRadius: 5,
         width: 200, 
         alignItems: 'center',
+        marginTop: 10
     },
     buttonText: {
         color: 'white',
@@ -51,6 +61,16 @@ const styles = StyleSheet.create({
         marginTop: 25,
         fontSize: 26,
         fontWeight: 'bold',
+    },
+    bottomContainer:{
+        flex: 1,
+        justifyContent: 'flex-end',
+        paddingBottom: 20,
+    },
+    linkText:{
+        color: 'teal',
+        fontSize: 25,
+        
     }
 });
 export default HomeScreen;

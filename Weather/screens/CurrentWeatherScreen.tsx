@@ -1,34 +1,15 @@
-import { StyleSheet, Text, TouchableOpacity, View, Image, ImageBackground, TextInput, Button } from 'react-native';
-import React, {useState, useEffect, useCallback } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+import React, {useState, useEffect} from 'react';
 import {getWeatherStackKey} from '../App';
 
 const WEATHERSTACK_KEY = getWeatherStackKey();
+console.log("Current:" + WEATHERSTACK_KEY)
 
-
-async function getYesterdayWeather(zipCode: string) {
-    
-    const url = new URL('http://api.weatherstack.com/historical')
+async function getCurrentWeather() {
+    const url = new URL('http://api.weatherstack.com/current')
     url.searchParams.append('access_key', WEATHERSTACK_KEY);
-    url.searchParams.append('query', zipCode) //zip or city location chages based on text input 
-    //console.log("The zip code currently set is "+ zipCode); //to test the zip is correct 
+    url.searchParams.append('query', '93933')
 
-    const today = new Date();
-    const yesterday = new Date(today);
-    yesterday.setDate(today.getDate() - 1);
-    let day = (yesterday.getDate()).toString();
-    if (day.length == 1) {
-        day = '0' + day.toString()
-    }
-    let month = (yesterday.getMonth() + 1).toString();
-    if (month.length == 1) {
-        month = '0' + month.toString()
-    }
-    const year = yesterday.getFullYear();
-    const formattedYesterday = year + "-" + month + "-" + day;
-    const currentTime = today.getHours();
-    const formattedTime = Math.floor(currentTime / 3)
-
-    url.searchParams.append('historical_date', formattedYesterday)
     url.searchParams.append('hourly', '1')
     url.searchParams.append('units', 'f')
     try {
@@ -40,20 +21,19 @@ async function getYesterdayWeather(zipCode: string) {
         const region = json['location']['region'];
         const country = json['location']['country']
         let location = city + ", " + region + ", " + country
-        const yesterdayData = json.historical[formattedYesterday]['hourly'][formattedTime]
+        const data = json.current;
+        console.log(data);
 
         return {
-            'chanceofrain': yesterdayData['chanceofrain'],
-            'feelslike': yesterdayData['feelslike'],
-            'humidity': yesterdayData['humidity'],
-            'temperature': yesterdayData['temperature'],
-            'uv_index': yesterdayData['uv_index'],
-            'visibility' : yesterdayData['visibility'],
-            'weather_descriptions': yesterdayData['weather_descriptions'],
-            'weather_icons': yesterdayData['weather_icons'],
-            'wind_dir': yesterdayData['wind_dir'],
-            'wind_speed': yesterdayData['wind_speed'],
-            'windgust': yesterdayData['windgust'],
+            'feelslike': data['feelslike'],
+            'humidity': data['humidity'],
+            'temperature': data['temperature'],
+            'uv_index': data['uv_index'],
+            'visibility' : data['visibility'],
+            'weather_descriptions': data['weather_descriptions'],
+            'weather_icons': data['weather_icons'],
+            'wind_dir': data['wind_dir'],
+            'wind_speed': data['wind_speed'],
             'location': location
         };
     } catch (error) {
@@ -73,11 +53,7 @@ async function getYesterdayWeather(zipCode: string) {
             'location':''}
 }
 
-const YesterdayScreen = () => {
-
-    const [tempZipCode, setTempZipCode] = useState(""); //used for text input 
-    const [zipCode, setZipCode] = useState(""); //it turns out the query does not strictly need to be a zip code - it can be a city too
-    
+const CurrentWeatherScreen = () => {
     const [weatherData, setWeatherData] = useState({
         chanceofrain: 0,
         feelslike: 0,
@@ -94,40 +70,17 @@ const YesterdayScreen = () => {
     });
 
     useEffect(() => {
-        // Automatically fetch weather data when component mounts
         const fetchWeather = async () => {
-            const data = await getYesterdayWeather(zipCode); 
+            const data = await getCurrentWeather();
             setWeatherData(data);
         };
         fetchWeather();
-    }, [zipCode]); // Dependency array: effect runs whenever zipCode changes 
-
-
-    const handleWeatherButton = () => { //sets zip code to the temp zip code when button pressed
-        setZipCode(tempZipCode);
-    }
+    }, []);
 
     return (
         <View style={styles.container}>
-            
             <View>
-
-            <Text>Yesterday's Weather!</Text>
-
-                <TextInput 
-                    placeholder="Enter zip or city"
-                    value={tempZipCode}
-                    onChangeText={text => setTempZipCode(text)} //temp variable so it's not updated every time you type a char
-                    placeholderTextColor={'#000'}
-                    style={styles.textInput}
-                    //keyboardType='numeric' //optional zip code only input 
-                >
-            </TextInput>
-              
-            <Button title="Get Weather" onPress={handleWeatherButton} /> 
-            </View>
-            <View>
-                <Text style={styles.title}>Yesterday's Weather</Text>
+                <Text style={styles.title}>Current Weather</Text>
             </View>
             
             <Text style={styles.locationName}>{weatherData.location}</Text>
@@ -138,13 +91,11 @@ const YesterdayScreen = () => {
                 <Text style={styles.dataPoints}>Condition: {weatherData.weather_descriptions}</Text>
                 <Text style={styles.dataPoints}>Temperature: {weatherData.temperature} F</Text>
                 <Text style={styles.dataPoints}>Feels like: {weatherData.feelslike} F</Text>
-                <Text style={styles.dataPoints}>Chance of Rain: {weatherData.chanceofrain}%</Text> 
                 <Text style={styles.dataPoints}>Humidity: {weatherData.humidity}%</Text>
                 <Text style={styles.dataPoints}>UV: {weatherData.uv_index}</Text>
                 <Text style={styles.dataPoints}>Visiblity: {weatherData.visibility} miles</Text>
                 <Text style={styles.dataPoints}>Wind direction: {weatherData.wind_dir}</Text>
                 <Text style={styles.dataPoints}>Wind speed: {weatherData.wind_speed} mph</Text>
-                <Text style={styles.dataPoints}>Wind gust: {weatherData.windgust} mph</Text> 
             </View>
         </View>
     );
@@ -165,18 +116,6 @@ const styles = StyleSheet.create({
     buttonText: {
         color: 'white',
         fontSize: 16, 
-    },
-    textInput: {
-        borderBottomWidth: 5,
-        padding: 5,
-        paddingVertical: 20,
-        marginVertical: 50,
-        marginHorizontal: 10,
-        backgroundColor: "#fff",
-        fontSize: 19,
-        borderRadius: 10,
-        borderBottomColor: '#ffde00',
-
     },
     title: {
         fontWeight: "bold",
@@ -200,4 +139,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default YesterdayScreen;
+export default CurrentWeatherScreen;

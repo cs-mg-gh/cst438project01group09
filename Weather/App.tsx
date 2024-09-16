@@ -32,6 +32,7 @@ export default function App() {
     startDB();
   },[]);
 
+  
   return (
     <UserProvider>
       <NavigationContainer>

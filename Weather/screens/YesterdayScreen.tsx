@@ -1,13 +1,16 @@
-import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import { StyleSheet, Text, TouchableOpacity, View, Image, ImageBackground, TextInput, Button } from 'react-native';
+import React, {useState, useEffect, useCallback } from 'react';
 import {getWeatherStackKey} from '../App';
 
 const WEATHERSTACK_KEY = getWeatherStackKey();
 
-async function getYesterdayWeather() {
+
+async function getYesterdayWeather(zipCode: string) {
+    
     const url = new URL('http://api.weatherstack.com/historical')
     url.searchParams.append('access_key', WEATHERSTACK_KEY);
-    url.searchParams.append('query', '93933')
+    url.searchParams.append('query', zipCode) //zip or city location chages based on text input 
+    //console.log("The zip code currently set is "+ zipCode); //to test the zip is correct 
 
     const today = new Date();
     const yesterday = new Date(today);
@@ -71,6 +74,10 @@ async function getYesterdayWeather() {
 }
 
 const YesterdayScreen = () => {
+
+    const [tempZipCode, setTempZipCode] = useState(""); //used for text input 
+    const [zipCode, setZipCode] = useState(""); //it turns out the query does not strictly need to be a zip code - it can be a city too
+    
     const [weatherData, setWeatherData] = useState({
         chanceofrain: 0,
         feelslike: 0,
@@ -89,14 +96,36 @@ const YesterdayScreen = () => {
     useEffect(() => {
         // Automatically fetch weather data when component mounts
         const fetchWeather = async () => {
-            const data = await getYesterdayWeather();
+            const data = await getYesterdayWeather(zipCode); 
             setWeatherData(data);
         };
         fetchWeather();
-    }, []);
+    }, [zipCode]); // Dependency array: effect runs whenever zipCode changes 
+
+
+    const handleWeatherButton = () => { //sets zip code to the temp zip code when button pressed
+        setZipCode(tempZipCode);
+    }
 
     return (
         <View style={styles.container}>
+            
+            <View>
+
+            <Text>Yesterday's Weather!</Text>
+
+                <TextInput 
+                    placeholder="Enter zip or city"
+                    value={tempZipCode}
+                    onChangeText={text => setTempZipCode(text)} //temp variable so it's not updated every time you type a char
+                    placeholderTextColor={'#000'}
+                    style={styles.textInput}
+                    //keyboardType='numeric' //optional zip code only input 
+                >
+            </TextInput>
+              
+            <Button title="Get Weather" onPress={handleWeatherButton} /> 
+            </View>
             <View>
                 <Text style={styles.title}>Yesterday's Weather</Text>
             </View>
@@ -136,6 +165,18 @@ const styles = StyleSheet.create({
     buttonText: {
         color: 'white',
         fontSize: 16, 
+    },
+    textInput: {
+        borderBottomWidth: 5,
+        padding: 5,
+        paddingVertical: 20,
+        marginVertical: 50,
+        marginHorizontal: 10,
+        backgroundColor: "#fff",
+        fontSize: 19,
+        borderRadius: 10,
+        borderBottomColor: '#ffde00',
+
     },
     title: {
         fontWeight: "bold",

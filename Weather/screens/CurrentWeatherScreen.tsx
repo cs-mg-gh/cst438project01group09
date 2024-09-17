@@ -1,9 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import React, {useState, useEffect} from 'react';
-import {getWeatherStackKey} from '../App';
 
-const WEATHERSTACK_KEY = getWeatherStackKey();
-console.log("Current:" + WEATHERSTACK_KEY)
+const WEATHERSTACK_KEY = "";
 
 async function getCurrentWeather() {
     const url = new URL('http://api.weatherstack.com/current')

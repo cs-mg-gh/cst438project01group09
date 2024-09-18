@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const WEATHERSTACK_KEY = 'dsfasdfadsf'; 
+const WEATHERSTACK_KEY = 'dsfasdfadsf';
+
 
 const FavoritesScreen = () => {
     const navigation = useNavigation();

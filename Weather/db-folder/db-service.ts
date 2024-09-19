@@ -22,8 +22,9 @@ export async function dbStart() {
 export async function addUsers(username:string,password:string){
     const db = await SQLite.openDatabaseAsync('WeatherDB');
     let add = await db.runAsync('INSERT INTO user (username, password) VALUES (?, ?)', username, password);
-    let tempId = getId(username);
-    addCityToDB('Seaside', 1);
+    let tempId = await getId(username);
+    let id = parseInt(tempId);
+    addCityToDB('Seaside', id);
     return add;
 }
 export async function checkCredentials(username: string, password: string){
@@ -118,14 +119,15 @@ export async function addCityToDB(city: string, userId: number){
 export async function getFavCities(userId: number){
   const db = await SQLite.openDatabaseAsync('WeatherDB');
   try{
+    console.log(`userID: ${userId}`)
     const query = await db.getAllAsync('SELECT name FROM favCities WHERE user_Id = ?', userId);
-    // console.log(query);
-    if(query.length > 0){
+    console.log(`query: ${query}`);
+    if(query.length > 0){ 
       const cities = query.map(row=>row.name);
+      console.log(`cities: ${cities}`);
       return cities;
     }
     // return query[0].name;
-
     // return query.map(row => row.name);
   }catch(error){
     console.error(`ERROR getting fav cities: ${error}`);

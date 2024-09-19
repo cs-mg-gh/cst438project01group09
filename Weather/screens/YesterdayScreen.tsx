@@ -4,7 +4,7 @@ import { getFavCities, getId } from '../db-folder/db-service';
 import { UserContext } from '../UserContext';
 import { Picker } from '@react-native-picker/picker';
 
-const WEATHERSTACK_KEY="";
+const WEATHERSTACK_KEY="1f82af4eb8bc73b81ec040400d969726";
 
 async function getYesterdayWeather(zipCode: string) {
     
@@ -112,6 +112,7 @@ const YesterdayScreen = () => {
             if(userContext){
                 let cities = await getFavCities(userId);
                 let strCities = cities?.toString()
+                console.log(`Cities: `,strCities);
                 const arrCities = strCities?.split(',').map(city => city.trim())
                 setCities(arrCities);
                 if(arrCities.length > 0){

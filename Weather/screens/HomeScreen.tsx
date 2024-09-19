@@ -21,27 +21,19 @@ const HomeScreen = () => {
     const CurrentButton = () =>{
         navigation.navigate('CurrentWeather');
     }
-    const FavoritesButton = () =>{
-        navigation.navigate('Favorites');
-    }
 
     return (
         <View style={styles.container}>
             <Text>Welcome to the Home Screen!</Text>
             <View style={styles.screenButton}>
-                <TouchableOpacity onPress={CurrentButton}>
-                    <Text style={styles.buttonText}>Today's Weather</Text>
-                </TouchableOpacity>
+            <TouchableOpacity onPress={CurrentButton}>
+                <Text style={styles.buttonText}>Today's Weather</Text>
+            </TouchableOpacity>
             </View>
             <View style={styles.screenButton}>
-                <TouchableOpacity onPress={YesterdayButton}>
-                    <Text style={styles.buttonText}>Yesterday's Weather</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.screenButton}>
-                <TouchableOpacity onPress={FavoritesButton}>
-                    <Text style={styles.buttonText}>Favorites</Text>
-                </TouchableOpacity>
+            <TouchableOpacity onPress={YesterdayButton}>
+                <Text style={styles.buttonText}>Yesterday's Weather</Text>
+            </TouchableOpacity>
             </View>
         </View>
     );

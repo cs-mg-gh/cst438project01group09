@@ -10,7 +10,6 @@ import CurrentWeatherScreen from './screens/CurrentWeatherScreen';
 import EditUsernameScreen from './screens/EditUsernameScreen';
 import FavoriteCityScreen from './screens/FavoriteCityScreen';
 import DeleteAccountScreen from './screens/DeleteAccountScreen';
-import { WEATHERSTACK_KEY } from '@env';
 import DebugScreen from './screens/EditOptionsScreen';
 import * as SQLite from 'expo-sqlite';
 import { useState, useEffect } from 'react';
@@ -68,13 +67,6 @@ interface WeatherData {
   windgust: number; 
   location: string;
 }
-
-export function getWeatherStackKey(): string {
-  // let key = WEATHERSTACK_KEY
-  let key="6fd6bf9dd9760cacf7dbd8c105714760"
-  console.log(key);
-  return key
-};
 
 const styles = StyleSheet.create({
   container: {

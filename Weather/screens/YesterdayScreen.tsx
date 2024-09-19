@@ -1,12 +1,10 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image, ImageBackground, TextInput, Button } from 'react-native';
 import React, {useState, useEffect, useCallback, useContext } from 'react';
-import {getWeatherStackKey} from '../App';
 import { getFavCities, getId } from '../db-folder/db-service';
 import { UserContext } from '../UserContext';
 import { Picker } from '@react-native-picker/picker';
 
 const WEATHERSTACK_KEY="";
-
 
 async function getYesterdayWeather(zipCode: string) {
     

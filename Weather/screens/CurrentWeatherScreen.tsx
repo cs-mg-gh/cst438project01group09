@@ -5,7 +5,7 @@ import { getFavCities, getId } from '../db-folder/db-service';
 import { UserContext } from '../UserContext';
 import { Picker } from '@react-native-picker/picker';
 
-const WEATHERSTACK_KEY="";
+const WEATHERSTACK_KEY = "";
 
 async function getCurrentWeather(zipCode: string) {
     const url = new URL('http://api.weatherstack.com/current')

@@ -5,7 +5,7 @@ import { getFavCities, getId } from '../db-folder/db-service';
 import { UserContext } from '../UserContext';
 import { Picker } from '@react-native-picker/picker';
 
-const WEATHERSTACK_KEY="1f82af4eb8bc73b81ec040400d969726";
+const WEATHERSTACK_KEY="";
 
 
 async function getYesterdayWeather(zipCode: string) {

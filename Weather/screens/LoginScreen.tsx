@@ -49,7 +49,7 @@ const LoginScreen = () => {
         >
         <View style={styles.container}>
             <View style={styles.container}>
-            <Text style={styles.title}>Yesterday's Weather</Text>
+            <Text style={styles.title}>Zone Weather</Text>
                 <Text style={styles.label}>Login</Text>
                 <TextInput
                     style={styles.input}

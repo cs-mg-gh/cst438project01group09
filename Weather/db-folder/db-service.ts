@@ -22,6 +22,8 @@ export async function dbStart() {
 export async function addUsers(username:string,password:string){
     const db = await SQLite.openDatabaseAsync('WeatherDB');
     let add = await db.runAsync('INSERT INTO user (username, password) VALUES (?, ?)', username, password);
+    let tempId = getId(username);
+    addCityToDB('Seaside', 1);
     return add;
 }
 export async function checkCredentials(username: string, password: string){
@@ -101,6 +103,8 @@ export async function deleteUser(username: string, password: string){
 
 export async function addCityToDB(city: string, userId: number){
   const db = await SQLite.openDatabaseAsync('WeatherDB');
+  const checkDB = await db.runAsync('SELECT name FROM favCities WHERE user_Id=?', userId);
+  console.log(checkDB);
   try{
     const query = await db.runAsync('INSERT INTO favCities (user_Id, name) VALUES (?, ?)', [userId, city]);
     console.log(`City: ${city} and ID: ${userId} added!`);
@@ -109,6 +113,7 @@ export async function addCityToDB(city: string, userId: number){
     console.error(`Error inserting city!: ${error}`);
   }
 }
+
 
 export async function getFavCities(userId: number){
   const db = await SQLite.openDatabaseAsync('WeatherDB');

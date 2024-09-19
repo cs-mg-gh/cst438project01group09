@@ -1,14 +1,20 @@
-import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import { StyleSheet, Text, TouchableOpacity, View, Image, ImageBackground, TextInput, Button } from 'react-native';
+import React, {useState, useEffect, useCallback, useContext } from 'react';
 import {getWeatherStackKey} from '../App';
+import { getFavCities, getId } from '../db-folder/db-service';
+import { UserContext } from '../UserContext';
+import { Picker } from '@react-native-picker/picker';
 
 const WEATHERSTACK_KEY="";
-console.log("Current:" + WEATHERSTACK_KEY)
 
-async function getCurrentWeather() {
+async function getCurrentWeather(zipCode: string) {
     const url = new URL('http://api.weatherstack.com/current')
     url.searchParams.append('access_key', WEATHERSTACK_KEY);
-    url.searchParams.append('query', '93933')
+    if(zipCode == ""){
+        url.searchParams.append('query', "93955");
+    }else{
+        url.searchParams.append('query', zipCode) //zip or city location chages based on text input 
+    }
 
     url.searchParams.append('hourly', '1')
     url.searchParams.append('units', 'f')
@@ -38,6 +44,9 @@ async function getCurrentWeather() {
         };
     } catch (error) {
         console.error('Error fetching weather data:', error);
+        alert("Invalid Zip or City");
+        console.log(`${zipCode} is not a valid zip or city`);
+
     }
     return {'chanceofrain': 0,
             'feelslike': 0,
@@ -54,6 +63,9 @@ async function getCurrentWeather() {
 }
 
 const CurrentWeatherScreen = () => {
+    const [tempZipCode, setTempZipCode] = useState(""); //used for text input 
+    const [zipCode, setZipCode] = useState("93955");
+
     const [weatherData, setWeatherData] = useState({
         chanceofrain: 0,
         feelslike: 0,
@@ -68,19 +80,85 @@ const CurrentWeatherScreen = () => {
         windgust: 0,
         location: '',
     });
+    const [cities, setCities] = useState<string[]>([]);
+    const [selectedCity, setSelectedCity] = useState<string>("");
+
+    const userContext = useContext(UserContext);
+    if(!userContext){
+        throw new Error('User Context Error');
+    }
+    const { userId } = userContext;
+
+    useEffect(() => {
+        const fetchCities = async () =>{
+            if(userContext){
+                let cities = await getFavCities(userId);
+                let strCities = cities?.toString()
+                const arrCities = strCities?.split(',').map(city => city.trim())
+                setCities(arrCities);
+                if(arrCities.length > 0){
+                    setSelectedCity(arrCities[0])
+                }
+            }
+        };
+        fetchCities();
+    }, [userId]);
 
     useEffect(() => {
         const fetchWeather = async () => {
-            const data = await getCurrentWeather();
+            const data = await getCurrentWeather(zipCode); 
+            setWeatherData(data);
+        };
+        fetchWeather();
+    }, [zipCode]);
+
+    useEffect(() => {
+        const fetchWeather = async () => {
+            const data = await getCurrentWeather(zipCode);
             setWeatherData(data);
         };
         fetchWeather();
     }, []);
 
+    useEffect(() =>{
+        if(selectedCity){
+            setZipCode(selectedCity);
+        }
+    }, [selectedCity]);
+
+    const handleWeatherButton = () => { //sets zip code to the temp zip code when button pressed
+        setZipCode(tempZipCode);
+    }
+
     return (
         <View style={styles.container}>
             <View>
                 <Text style={styles.title}>Current Weather</Text>
+            </View>
+
+            <View style={styles.inputContainer}>
+                <Picker
+                    selectedValue={selectedCity}
+                    style={styles.picker}
+                    onValueChange={(itemValue) => setSelectedCity(itemValue)}>
+                     {cities.map((city, index) => (
+                        <Picker.Item key={index} label={city} value={city} />
+                    ))}
+                </Picker>
+
+                <TextInput 
+                    placeholder="Enter zip or city"
+                    value={tempZipCode}
+                    onChangeText={text => setTempZipCode(text)} //temp variable so it's not updated every time you type a char
+                    placeholderTextColor={'#000'}
+                    style={styles.textInput}
+                    //keyboardType='numeric' //optional zip code only input 
+                >
+            </TextInput>
+              <TouchableOpacity onPress={handleWeatherButton}
+              style={styles.yesterdayButton}>
+                    <Text style={styles.buttonText}>Go</Text>
+              </TouchableOpacity>
             </View>
             
             <Text style={styles.locationName}>{weatherData.location}</Text>
@@ -105,17 +183,43 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
+    },inputContainer:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 10,
+        marginVertical: 10,
+    },
+    picker:{
+        height: 50,
+        width: 150,
+        marginHorizontal: 10,
+        flex: 1
     },
     yesterdayButton: {
-        backgroundColor: 'blue',
+        backgroundColor: 'teal',
         padding: 10,
+        paddingVertical: 8,
+        marginVertical: 10,
+        marginHorizontal: 10,
         borderRadius: 5,
-        width: 200, 
+        width: 50, 
+        height: 50,
         alignItems: 'center',
     },
     buttonText: {
         color: 'white',
         fontSize: 16, 
+    },
+    textInput: {
+        borderBottomWidth: 5,
+        padding: 5,
+        paddingVertical: 8,
+        marginVertical: 10,
+        marginHorizontal: 10,
+        backgroundColor: "#fff",
+        fontSize: 14,
+        borderRadius: 10,
+        borderBottomColor: '#ffde00',
     },
     title: {
         fontWeight: "bold",

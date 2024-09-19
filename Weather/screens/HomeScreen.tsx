@@ -37,7 +37,7 @@ const HomeScreen = () => {
             </TouchableOpacity>
             <TouchableOpacity style={styles.screenButton}
             onPress={FavoriteButton} >
-                <Text style={styles.buttonText}>Favorite Cities</Text>
+                <Text style={styles.buttonText}>Add Favorite City</Text>
             </TouchableOpacity>
         </View>
     );

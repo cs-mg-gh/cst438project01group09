@@ -17,8 +17,6 @@ async function getYesterdayWeather(zipCode: string) {
     }else{
         url.searchParams.append('query', zipCode) //zip or city location chages based on text input 
     }
-    //console.log("The zip code currently set is "+ zipCode); //to test the zip is correct 
-    // console.log(`Zip Code at Start: ${zipCode}`);
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
@@ -85,7 +83,7 @@ async function getYesterdayWeather(zipCode: string) {
 const YesterdayScreen = () => {
 
     const [tempZipCode, setTempZipCode] = useState(""); //used for text input 
-    const [zipCode, setZipCode] = useState(""); //it turns out the query does not strictly need to be a zip code - it can be a city too
+    const [zipCode, setZipCode] = useState("93955"); //it turns out the query does not strictly need to be a zip code - it can be a city too
     
     const [weatherData, setWeatherData] = useState({
         chanceofrain: 0,
@@ -128,14 +126,26 @@ const YesterdayScreen = () => {
 
 
     useEffect(() => {
-        // Automatically fetch weather data when component mounts
         const fetchWeather = async () => {
             const data = await getYesterdayWeather(zipCode); 
             setWeatherData(data);
         };
         fetchWeather();
-    }, [zipCode]); // Dependency array: effect runs whenever zipCode changes 
+    }, [zipCode]); 
 
+    useEffect(() =>{
+        const fetchWeather = async() =>{
+            const data = await getYesterdayWeather(zipCode);
+            setWeatherData(data);
+        };
+        fetchWeather();
+    }, [])
+
+    useEffect(() =>{
+        if(selectedCity){
+            setZipCode(selectedCity);
+        }
+    }, [selectedCity]);
 
     const handleWeatherButton = () => { //sets zip code to the temp zip code when button pressed
         setZipCode(tempZipCode);
@@ -153,8 +163,7 @@ const YesterdayScreen = () => {
                 <Picker
                     selectedValue={selectedCity}
                     style={styles.picker}
-                    onValueChange={(itemValue) => setSelectedCity(itemValue)}
-                >
+                    onValueChange={(itemValue) => setSelectedCity(itemValue)}>
                      {cities.map((city, index) => (
                         <Picker.Item key={index} label={city} value={city} />
                     ))}
@@ -237,7 +246,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
         borderRadius: 10,
         borderBottomColor: '#ffde00',
-
     },
     title: {
         fontWeight: "bold",

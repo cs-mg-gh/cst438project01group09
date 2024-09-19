@@ -1,8 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image, ImageBackground, TextInput, Button } from 'react-native';
 import React, {useState, useEffect, useCallback } from 'react';
-import {getWeatherStackKey} from '../App';
 
-const WEATHERSTACK_KEY = getWeatherStackKey();
+const WEATHERSTACK_KEY = "";
 
 
 async function getYesterdayWeather(zipCode: string) {

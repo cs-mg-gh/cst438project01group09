@@ -24,6 +24,9 @@ const HomeScreen = () => {
     const FavoritesButton = () =>{
         navigation.navigate('Favorites');
     }
+    const SearchByRegionButton = () =>{
+        navigation.navigate('SearchByRegion');
+    }
 
     return (
         <View style={styles.container}>
@@ -41,6 +44,11 @@ const HomeScreen = () => {
             <View style={styles.screenButton}>
                 <TouchableOpacity onPress={FavoritesButton}>
                     <Text style={styles.buttonText}>Favorites</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.screenButton}>
+                <TouchableOpacity onPress={SearchByRegionButton}>
+                    <Text style={styles.buttonText}>Search By Region</Text>
                 </TouchableOpacity>
             </View>
         </View>

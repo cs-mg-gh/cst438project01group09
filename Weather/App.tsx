@@ -17,6 +17,9 @@ import { dbStart } from './db-folder/db-service';
 import { UserProvider } from './UserContext';
 import EditPasswordScreen from './screens/EditPasswordScreen';
 import FavoritesScreen from './screens/FavoritesScreen';
+import SearchByRegionScreen from './screens/SearchByRegionScreen';
+import ViewCityScreen from './screens/ViewCityScreen';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -49,6 +52,8 @@ export default function App() {
         <Stack.Screen name='Yesterday' component={YesterdayScreen}/>
         <Stack.Screen name='CurrentWeather' component={CurrentWeatherScreen}/>
         <Stack.Screen name='Favorites' component={FavoritesScreen}/>
+        <Stack.Screen name='SearchByRegion' component={SearchByRegionScreen}/>
+        <Stack.Screen name='ViewCity' component={ViewCityScreen}/>
       </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>

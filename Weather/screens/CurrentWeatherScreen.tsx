@@ -2,7 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {getWeatherStackKey} from '../App';
 
-const WEATHERSTACK_KEY = "adsfdasfasdfads";
+const WEATHERSTACK_KEY = "60d4f513a2ea228a580264bbb7df7f60";
 console.log("Current:" + WEATHERSTACK_KEY)
 
 async function getCurrentWeather() {

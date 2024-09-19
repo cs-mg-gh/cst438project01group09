@@ -8,6 +8,7 @@ import CreateAccountScreen from './screens/CreateAccountScreen';
 import YesterdayScreen from './screens/YesterdayScreen';
 import CurrentWeatherScreen from './screens/CurrentWeatherScreen';
 import EditUsernameScreen from './screens/EditUsernameScreen';
+import FavoriteCityScreen from './screens/FavoriteCityScreen';
 import DeleteAccountScreen from './screens/DeleteAccountScreen';
 import DebugScreen from './screens/EditOptionsScreen';
 import * as SQLite from 'expo-sqlite';
@@ -45,6 +46,7 @@ export default function App() {
         <Stack.Screen name='Debug' component={DebugScreen}/>
         <Stack.Screen name='Yesterday' component={YesterdayScreen}/>
         <Stack.Screen name='CurrentWeather' component={CurrentWeatherScreen}/>
+        <Stack.Screen name='FavoriteCity' component={FavoriteCityScreen}/>
       </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>

@@ -2,17 +2,18 @@
 import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { UserContext } from "../UserContext";
-import React, { useContext, useState, version } from 'react';        
+import React, { useContext, useEffect, useState, version } from 'react';        
         
 const HomeScreen = () => {
     const navigation = useNavigation();
-
     const userContext = useContext(UserContext);
+
     if(!userContext){
         throw new Error('User Context Error');
     }
     
     const { username } = userContext;
+    const { userId } = userContext;
 
     const YesterdayButton = () =>{
         navigation.navigate('Yesterday');
@@ -21,20 +22,23 @@ const HomeScreen = () => {
     const CurrentButton = () =>{
         navigation.navigate('CurrentWeather');
     }
+    const FavoriteButton = () =>{
+        navigation.navigate('FavoriteCity');
+    }
 
     return (
         <View style={styles.container}>
-            <Text>Welcome to the Home Screen!</Text>
-            <View style={styles.screenButton}>
-            <TouchableOpacity onPress={CurrentButton}>
+            <Text style={styles.title}>Welcome {username}!</Text>
+            <TouchableOpacity onPress={CurrentButton} style={styles.screenButton}>
                 <Text style={styles.buttonText}>Today's Weather</Text>
             </TouchableOpacity>
-            </View>
-            <View style={styles.screenButton}>
-            <TouchableOpacity onPress={YesterdayButton}>
+            <TouchableOpacity onPress={YesterdayButton} style={styles.screenButton}>
                 <Text style={styles.buttonText}>Yesterday's Weather</Text>
             </TouchableOpacity>
-            </View>
+            <TouchableOpacity style={styles.screenButton}
+            onPress={FavoriteButton} >
+                <Text style={styles.buttonText}>Add Favorite City</Text>
+            </TouchableOpacity>
         </View>
     );
 };
@@ -45,17 +49,23 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    title: {
+        fontWeight: "bold",
+        fontSize: 32,
+        paddingTop: 12
+    },
     screenButton: {
-        backgroundColor: 'blue',
-        padding: 10,
+        backgroundColor: 'teal',
+        padding: 15,
         borderRadius: 5,
-        width: 200, 
+        width: 250, 
+        height: 60,
         alignItems: 'center',
         marginTop: 10
     },
     buttonText: {
         color: 'white',
-        fontSize: 16, 
+        fontSize: 20, 
     },
         welcomeText:{
         marginTop: 25,

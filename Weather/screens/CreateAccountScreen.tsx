@@ -52,7 +52,7 @@ const LoginScreen = () => {
         >
         <View style={styles.container}>
             <View style={styles.formContainer}>
-            <Text style={styles.title}>Yesterday's Weather</Text>
+            <Text style={styles.title}>Zone Weather</Text>
                 <Text style={styles.label}>Enter Login:</Text>
                 <TextInput
                     style={styles.input}

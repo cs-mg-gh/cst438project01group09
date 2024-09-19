@@ -48,7 +48,7 @@ const EditOptionsScreen = () => {
     return(
         <View style={styles.container}>
             <View style={styles.formContainer}>
-            <Text style={styles.title}>Update Password</Text>
+            <Text style={styles.title}>Edit Account</Text>
             <TouchableOpacity
                 onPress={() => {
                     navigation.navigate('EditUsername');

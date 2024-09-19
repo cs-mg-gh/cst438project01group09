@@ -115,8 +115,12 @@ const YesterdayScreen = () => {
         const fetchCities = async () =>{
             if(userContext){
                 let cities = await getFavCities(userId);
-                console.log(`Cities: ${cities}`);
-                // setCities(cities.map(city => city.name));
+                let strCities = cities?.toString()
+                const arrCities = strCities?.split(',').map(city => city.trim())
+                setCities(arrCities);
+                if(arrCities.length > 0){
+                    setSelectedCity(arrCities[0])
+                }
             }
         };
         fetchCities();
@@ -146,6 +150,15 @@ const YesterdayScreen = () => {
             </View>
             
             <View style={styles.inputContainer}>
+                <Picker
+                    selectedValue={selectedCity}
+                    style={styles.picker}
+                    onValueChange={(itemValue) => setSelectedCity(itemValue)}
+                >
+                     {cities.map((city, index) => (
+                        <Picker.Item key={index} label={city} value={city} />
+                    ))}
+                </Picker>
 
                 <TextInput 
                     placeholder="Enter zip or city"
@@ -162,19 +175,6 @@ const YesterdayScreen = () => {
               </TouchableOpacity>
             </View>
 
-            {/* <View style={styles.inputContainer}>
-                <Picker
-                    selectedValue={selectedCity}
-                    onValueChange={(itemValue)=>{
-                        setSelectedCity(itemValue);
-                        setZipCode(itemValue);
-                    }}>
-                    <Picker.Item label="Favorite Cities" value=""/>
-                        {cities.map((city,index)=>(
-                            <Picker.Item key={index} label={city}/>
-                        ))}
-                </Picker>
-            </View> */}
             
             <Text style={styles.locationName}>{weatherData.location}</Text>
             <View>
@@ -201,7 +201,16 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
     },inputContainer:{
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 10,
+        marginVertical: 10,
+    },
+    picker:{
+        height: 50,
+        width: 150,
+        marginHorizontal: 10,
+        flex: 1
     },
     yesterdayButton: {
         backgroundColor: 'teal',
@@ -225,7 +234,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         marginHorizontal: 10,
         backgroundColor: "#fff",
-        fontSize: 19,
+        fontSize: 14,
         borderRadius: 10,
         borderBottomColor: '#ffde00',
 

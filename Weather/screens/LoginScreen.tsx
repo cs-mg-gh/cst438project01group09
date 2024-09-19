@@ -1,7 +1,7 @@
 import { Alert, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import React, { useContext, useState } from 'react';
 import { useNavigation } from "@react-navigation/native";
-import { checkCredentials } from "../db-folder/db-service";
+import { checkCredentials, getId } from "../db-folder/db-service";
 import { UserContext } from "../UserContext";
 
 const LoginScreen = () => {
@@ -11,6 +11,7 @@ const LoginScreen = () => {
         throw new Error('Error');
     }
     const { setUsername } = userContext;
+    const { setUserId } = userContext;
 
     const [inputUsername, setInputUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -26,6 +27,9 @@ const LoginScreen = () => {
             let user = await checkCredentials(trimmedUsername, trimmedPassword);
             if(user && user.username == trimmedUsername && user.password == trimmedPassword){
                 setUsername(trimmedUsername);
+                let idObj = await getId(trimmedUsername);
+                // console.log(`ID OBJ: ${idObj}`);
+                setUserId(idObj);
                 navigation.navigate('Home');
             }else{
                 Alert.alert("Invalid credentials")

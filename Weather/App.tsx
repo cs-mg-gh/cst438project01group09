@@ -8,8 +8,9 @@ import CreateAccountScreen from './screens/CreateAccountScreen';
 import YesterdayScreen from './screens/YesterdayScreen';
 import CurrentWeatherScreen from './screens/CurrentWeatherScreen';
 import EditUsernameScreen from './screens/EditUsernameScreen';
+import FavoriteCityScreen from './screens/FavoriteCityScreen';
 import DeleteAccountScreen from './screens/DeleteAccountScreen';
-import {WEATHERSTACK_KEY} from '@env';
+import { WEATHERSTACK_KEY } from '@env';
 import DebugScreen from './screens/EditOptionsScreen';
 import * as SQLite from 'expo-sqlite';
 import { useState, useEffect } from 'react';
@@ -46,6 +47,7 @@ export default function App() {
         <Stack.Screen name='Debug' component={DebugScreen}/>
         <Stack.Screen name='Yesterday' component={YesterdayScreen}/>
         <Stack.Screen name='CurrentWeather' component={CurrentWeatherScreen}/>
+        <Stack.Screen name='FavoriteCity' component={FavoriteCityScreen}/>
       </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>
@@ -68,7 +70,8 @@ interface WeatherData {
 }
 
 export function getWeatherStackKey(): string {
-  let key = WEATHERSTACK_KEY
+  // let key = WEATHERSTACK_KEY
+  let key="6fd6bf9dd9760cacf7dbd8c105714760"
   console.log(key);
   return key
 };

@@ -29,6 +29,21 @@ const EditOptionsScreen = () => {
             alert(`ERROR showing users: ${error}`);
         }
     };
+    const showCities = async(tableName: string)=>{
+        try{
+            let db = await SQLite.openDatabaseAsync('WeatherDB');
+            let query = `SELECT * FROM favCities`;
+            let rows = await db.getAllAsync(query);
+            let strings = `Viewing: city\n`;
+            for (let row of rows){
+                strings += `${JSON.stringify(row)}\n`;
+            }
+            alert(strings);
+        }catch(error){
+            alert(`ERROR showing users: ${error}`);
+        }
+    };
+    
 
     return(
         <View style={styles.container}>
@@ -53,9 +68,15 @@ const EditOptionsScreen = () => {
                     <Text style={styles.linkText}>Account Deletion</Text>
                 </TouchableOpacity>
             <View style={styles.bottomContainer}>
+
+            <TouchableOpacity style={styles.button} onPress={()=>showCities("users")}>
+                <Text style={styles.buttonText}>View Cities</Text>
+            </TouchableOpacity>
+            <View style={styles.spaced}></View>
             <TouchableOpacity style={styles.button} onPress={()=>showUsers("users")}>
                 <Text style={styles.buttonText}>View Users</Text>
             </TouchableOpacity>
+
             <View style={styles.spaced}></View>
             <TouchableOpacity style={styles.button} onPress={()=>debugReset()}>
                 <Text style={styles.buttonText}>CLEAR DATABASE AND RESET</Text>

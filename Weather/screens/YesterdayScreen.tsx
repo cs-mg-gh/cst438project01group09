@@ -2,7 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View, Image, ImageBackground, TextI
 import React, {useState, useEffect, useCallback } from 'react';
 import {getWeatherStackKey} from '../App';
 
-const WEATHERSTACK_KEY = "60d4f513a2ea228a580264bbb7df7f60";
+const WEATHERSTACK_KEY = "";
 
 
 async function getYesterdayWeather(zipCode: string) {

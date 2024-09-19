@@ -21,9 +21,6 @@ const HomeScreen = () => {
     const CurrentButton = () =>{
         navigation.navigate('CurrentWeather');
     }
-    const FavoritesButton = () =>{
-        navigation.navigate('Favorites');
-    }
     const SearchByRegionButton = () =>{
         navigation.navigate('SearchByRegion');
     }
@@ -39,11 +36,6 @@ const HomeScreen = () => {
             <View style={styles.screenButton}>
                 <TouchableOpacity onPress={YesterdayButton}>
                     <Text style={styles.buttonText}>Yesterday's Weather</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.screenButton}>
-                <TouchableOpacity onPress={FavoritesButton}>
-                    <Text style={styles.buttonText}>Favorites</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.screenButton}>

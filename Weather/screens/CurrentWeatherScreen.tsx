@@ -2,7 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {getWeatherStackKey} from '../App';
 
-const WEATHERSTACK_KEY = "60d4f513a2ea228a580264bbb7df7f60";
+const WEATHERSTACK_KEY = "";
 console.log("Current:" + WEATHERSTACK_KEY)
 
 async function getCurrentWeather() {
@@ -112,6 +112,13 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         width: 200, 
         alignItems: 'center',
+    },backButton: {
+        backgroundColor: 'blue',
+        padding: 15,
+        borderRadius: 5,
+        width: '60%',
+        alignItems: 'center',
+        marginTop: 20,
     },
     buttonText: {
         color: 'white',

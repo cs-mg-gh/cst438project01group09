@@ -1,8 +1,8 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import React, {useState, useEffect} from 'react';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
-const WEATHERSTACK_KEY = "60d4f513a2ea228a580264bbb7df7f60";
+const WEATHERSTACK_KEY = "";
 
 async function getCurrentWeather(cityName) {
     const url = new URL('http://api.weatherstack.com/current');
@@ -15,6 +15,7 @@ async function getCurrentWeather(cityName) {
     try {
         const response = await fetch(url);
         const json = await response.json();
+        
 
         if (json.error) {
             console.error('Error in weather API response:', json.error);
@@ -45,10 +46,11 @@ async function getCurrentWeather(cityName) {
     }
 }
 
-const ViewCityScreen = () => {
+    const ViewCityScreen = () => {
     const route = useRoute();
     const { city } = route.params; // Retrieve the city from navigation params
     const [weatherData, setWeatherData] = useState(null);
+    const navigation = useNavigation();
 
     useEffect(() => {
         const fetchWeather = async () => {
@@ -88,6 +90,13 @@ const ViewCityScreen = () => {
                 <Text style={styles.dataPoints}>Wind direction: {weatherData.wind_dir}</Text>
                 <Text style={styles.dataPoints}>Wind speed: {weatherData.wind_speed} mph</Text>
             </View>
+            <TouchableOpacity 
+                style={styles.backButton} 
+                onPress={() => navigation.navigate('Home')}>
+                <Text style={styles.buttonText}>Go Back to Home</Text>
+            </TouchableOpacity>
+
+
         </View>
     );
 };
@@ -117,6 +126,17 @@ const styles = StyleSheet.create({
     dataSection: {
         paddingTop: 10
     },
+    backButton: {
+        backgroundColor: 'blue',
+        padding: 15,
+        borderRadius: 5,
+        width: '60%',
+        alignItems: 'center',
+        marginTop: 20,
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 16,
+    },
 });
-
 export default ViewCityScreen;

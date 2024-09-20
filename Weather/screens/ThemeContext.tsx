@@ -38,6 +38,14 @@ export const themes = {
         fontSize: 22,
         
     },
+    screenButton: {
+        backgroundColor: 'blue',
+        padding: 10,
+        borderRadius: 5,
+        width: 200, 
+        alignItems: 'center',
+        marginTop: 10
+    },
   },
   dark: {
     backgroundColor: '#000000',
@@ -77,6 +85,14 @@ export const themes = {
         color: 'white',
         fontSize: 22,
         
+    },
+    screenButton: {
+        backgroundColor: '#EFEFEF',
+        padding: 10,
+        borderRadius: 5,
+        width: 200, 
+        alignItems: 'center',
+        marginTop: 10
     },
   },
 };

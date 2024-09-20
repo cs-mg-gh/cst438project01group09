@@ -25,18 +25,27 @@ const HomeScreen = () => {
     }
 
     return (
-        <View style={styles.container}>
-            <Text>Welcome to the Home Screen!</Text>
-            <View style={styles.screenButton}>
+        <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
+            <Text style={{color : theme.textColor}}>Welcome to the Home Screen!</Text>
+            <View style={theme.screenButton}>
             <TouchableOpacity onPress={CurrentButton}>
-                <Text style={styles.buttonText}>Today's Weather</Text>
+                <Text style={[styles.buttonText, { color: theme.backgroundColor }]}>Today's Weather</Text>
             </TouchableOpacity>
             </View>
-            <View style={styles.screenButton}>
+            <View style={theme.screenButton}>
             <TouchableOpacity onPress={YesterdayButton}>
-                <Text style={styles.buttonText}>Yesterday's Weather</Text>
+                <Text style={[styles.buttonText, { color: theme.backgroundColor }]}>Yesterday's Weather</Text>
             </TouchableOpacity>
             </View>
+
+
+            < View style={styles.container}>                       
+                <TouchableOpacity onPress={toggleTheme}>
+                <Text style={{ color: theme.textColor }}>Toggle dark mode</Text>
+                </TouchableOpacity> 
+
+            </View>
+
         </View>
     );
 };

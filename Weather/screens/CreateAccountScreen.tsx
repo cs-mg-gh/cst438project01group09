@@ -1,11 +1,13 @@
 import { Alert, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigation } from "@react-navigation/native";
 
 import { addUsers, checkIfUserExists } from "../db-folder/db-service";
+import { ThemeContext } from './ThemeContext';
 
 
 const LoginScreen = () => {
+    const { theme, toggleTheme } = useContext(ThemeContext);
     const navigation = useNavigation();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -47,39 +49,39 @@ const LoginScreen = () => {
     
     return(
         <KeyboardAvoidingView
-        style={styles.container}
+        style={[styles.container, { backgroundColor: theme.backgroundColor }]}
         behavior={Platform.OS == 'ios' ? 'padding' : 'height'} 
         >
-        <View style={styles.container}>
-            <View style={styles.formContainer}>
-            <Text style={styles.title}>Yesterday's Weather</Text>
-                <Text style={styles.label}>Enter Login:</Text>
+        <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
+            <View style={[styles.formContainer, { backgroundColor: theme.backgroundColor }]}>
+            <Text style={[styles.title, { color: theme.textColor }]}>Yesterday's Weather</Text>
+                <Text style={[styles.label, { color: theme.textColor }]}>Enter Login:</Text>
                 <TextInput
-                    style={styles.input}
+                    style={theme.input}
                     placeholder="Enter Username"
                     onChangeText={setUsername}
                     value={username}
                 />
 
-                <Text style={styles.label}>Enter Password: </Text>
+                <Text style={[styles.label, { color: theme.textColor }]}>Enter Password: </Text>
                 <TextInput
-                    style={styles.input}
+                    style={theme.input}
                     placeholder="Enter Password"
                     secureTextEntry = {true}
                     onChangeText={setPassword}
                     value={password}
                 />
 
-                <Text style={styles.label}>Re-Enter Password: </Text>
+                <Text style={[styles.label, { color: theme.textColor }]}>Re-Enter Password: </Text>
                 <TextInput
-                    style={styles.input}
+                    style={theme.input}
                     placeholder="Enter Password"
                     secureTextEntry = {true}
                     onChangeText={setRePassword}
                     value={rePassword}
                 />
 
-                <TouchableOpacity style={styles.button} 
+                <TouchableOpacity style={theme.button} 
                 onPress={createButton}>
                     <Text style={styles.buttonText}>Create Account</Text>
                 </TouchableOpacity>
@@ -92,7 +94,7 @@ const LoginScreen = () => {
                 onPress={() => {
                     navigation.navigate('Login');
                 }} >
-                    <Text style={styles.linkText}>Login Page</Text>
+                    <Text style={theme.linkText}>Login Page</Text>
                 </TouchableOpacity>
             </View>
         </View>

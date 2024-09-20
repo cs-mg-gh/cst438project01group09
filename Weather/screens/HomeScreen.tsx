@@ -2,9 +2,11 @@
 import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { UserContext } from "../UserContext";
-import React, { useContext, useState, version } from 'react';        
+import React, { useContext, useState, version } from 'react'; 
+import { ThemeContext } from './ThemeContext';       
         
 const HomeScreen = () => {
+    const { theme, toggleTheme } = useContext(ThemeContext);
     const navigation = useNavigation();
 
     const userContext = useContext(UserContext);

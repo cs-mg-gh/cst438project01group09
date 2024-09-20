@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {getWeatherStackKey} from '../App';
+import { ThemeContext } from './ThemeContext';
 
 const WEATHERSTACK_KEY = getWeatherStackKey();
 console.log("Current:" + WEATHERSTACK_KEY)
@@ -54,6 +55,7 @@ async function getCurrentWeather() {
 }
 
 const CurrentWeatherScreen = () => {
+    const { theme, toggleTheme } = useContext(ThemeContext);
     const [weatherData, setWeatherData] = useState({
         chanceofrain: 0,
         feelslike: 0,

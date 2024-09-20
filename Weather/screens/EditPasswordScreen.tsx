@@ -1,11 +1,13 @@
 import { Alert, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigation } from "@react-navigation/native";
 
 import { checkIfUserExists, updatePasswordDB } from "../db-folder/db-service";
+import { ThemeContext } from './ThemeContext';
 
 
 const EditPasswordScreen = () => {
+    const { theme, toggleTheme } = useContext(ThemeContext);
     const navigation = useNavigation();
     const [username, setUsername] = useState('')
     const [oldPassword, setOldPassword] = useState('')

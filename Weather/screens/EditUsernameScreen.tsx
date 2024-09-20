@@ -1,11 +1,12 @@
 import { Alert, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigation } from "@react-navigation/native";
 
 import { checkIfUserExists, updateUsernameDB } from "../db-folder/db-service";
-
+import { ThemeContext } from './ThemeContext';
 
 const EditUsernameScreen = () => {
+    const { theme, toggleTheme } = useContext(ThemeContext);
     const navigation = useNavigation();
     const [oldUsername, setOldUsername] = useState('')
     const [newUsername, setNewUsername] = useState('')

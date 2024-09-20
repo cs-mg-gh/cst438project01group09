@@ -1,10 +1,12 @@
-import { Alert, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View, Switch, ImageBackground} from "react-native";
 import React, { useContext, useState } from 'react';
 import { useNavigation } from "@react-navigation/native";
 import { checkCredentials } from "../db-folder/db-service";
 import { UserContext } from "../UserContext";
+import { ThemeContext } from './ThemeContext';
 
 const LoginScreen = () => {
+    const { theme, toggleTheme } = useContext(ThemeContext);
     const navigation = useNavigation();
     const userContext = useContext(UserContext);
     if(!userContext){
@@ -44,6 +46,9 @@ const LoginScreen = () => {
         behavior={Platform.OS == 'ios' ? 'padding' : 'height'} 
         >
         <View style={styles.container}>
+
+            
+
             <View style={styles.container}>
             <Text style={styles.title}>Yesterday's Weather</Text>
                 <Text style={styles.label}>Login</Text>
@@ -70,6 +75,17 @@ const LoginScreen = () => {
 
             <View style={styles.bottomContainer}>
                 <View style={styles.bottom}>
+
+                    <View>
+                        <Text> This is where the switch will go</Text>
+                        
+                        <TouchableOpacity onPress={toggleTheme}>
+                        <Text style={{ color: theme.textColor }}>Toggle colouublind mode</Text>
+                        </TouchableOpacity>
+
+                    </View>
+
+
                     <TouchableOpacity
                     onPress={() => {
                         navigation.navigate('CreateAccount');

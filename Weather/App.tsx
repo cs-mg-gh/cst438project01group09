@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Switch } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/HomeScreen';
@@ -12,10 +12,12 @@ import DeleteAccountScreen from './screens/DeleteAccountScreen';
 import {WEATHERSTACK_KEY} from '@env';
 import DebugScreen from './screens/EditOptionsScreen';
 import * as SQLite from 'expo-sqlite';
-import { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { dbStart } from './db-folder/db-service';
 import { UserProvider } from './UserContext';
 import EditPasswordScreen from './screens/EditPasswordScreen';
+import {ThemeProvider} from './ThemeProvider'; 
+
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +36,7 @@ export default function App() {
 
   
   return (
+    <ThemeProvider>
     <UserProvider>
       <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
@@ -49,6 +52,7 @@ export default function App() {
       </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>
+    </ThemeProvider>
   );
 }
 

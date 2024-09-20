@@ -35,21 +35,7 @@ export default function App() {
   },[]);
 
 
-  /*
-  
-        <Stack.Screen name='Login' component={LoginScreen}/>
-        <Stack.Screen name='CreateAccount' component={CreateAccountScreen}/>
-        <Stack.Screen name='EditUsername' component={EditUsernameScreen}/>
-        <Stack.Screen name='EditPassword' component={EditPasswordScreen}/>
-        <Stack.Screen name='DeleteAccount' component={DeleteAccountScreen}/>
 
-        <Stack.Screen name='Debug' component={DebugScreen}/>
-
-        <Stack.Screen name='Yesterday' component={YesterdayScreen}/>
-        <Stack.Screen name='CurrentWeather' component={CurrentWeatherScreen}/>
-  
-  
-  */
   
   return (
     <ThemeProvider>
@@ -58,8 +44,14 @@ export default function App() {
       <Stack.Navigator initialRouteName="Login">
 
         <Stack.Screen name='Home' component={HomeScreen}/>
-        
-        
+        <Stack.Screen name='Login' component={LoginScreen}/>
+        <Stack.Screen name='CreateAccount' component={CreateAccountScreen}/>
+        <Stack.Screen name='EditUsername' component={EditUsernameScreen}/>
+        <Stack.Screen name='EditPassword' component={EditPasswordScreen}/>
+        <Stack.Screen name='DeleteAccount' component={DeleteAccountScreen}/>
+        <Stack.Screen name='Debug' component={DebugScreen}/>
+        <Stack.Screen name='Yesterday' component={YesterdayScreen}/>
+        <Stack.Screen name='CurrentWeather' component={CurrentWeatherScreen}/>
         
       </Stack.Navigator>
       </NavigationContainer>

@@ -42,32 +42,34 @@ const LoginScreen = () => {
 
     return(
         <KeyboardAvoidingView
-        style={styles.container}
+        style={[styles.container, { backgroundColor: theme.backgroundColor }]}
         behavior={Platform.OS == 'ios' ? 'padding' : 'height'} 
         >
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
 
-            
+        {/* <ImageBackground source={require('../assets/cloudsWhite.png')}
+        style={styles.background}
+        ></ImageBackground> */}
 
-            <View style={styles.container}>
-            <Text style={styles.title}>Yesterday's Weather</Text>
-                <Text style={styles.label}>Login</Text>
+            <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
+            <Text style={[styles.title, { color: theme.textColor }]}>Yesterday's Weather</Text>
+                <Text style={[styles.label, { color: theme.backgroundColor }]}>Login</Text>
                 <TextInput
-                    style={styles.input}
+                    style={ theme.input }
                     placeholder="Enter Username"
                     onChangeText={setInputUsername}
                     value={inputUsername}
                 />
 
-                <Text style={styles.label}>Password: </Text>
+                <Text style={[styles.label, { color: theme.backgroundColor }]}>Password: </Text>
                 <TextInput
-                    style={styles.input}
+                    style={theme.input}
                     placeholder="Enter Password"
                     secureTextEntry = {true}
                     onChangeText={setPassword}
                     value={password}
                 />
-                <TouchableOpacity style={styles.button} 
+                <TouchableOpacity style={theme.button} 
                 onPress={loginButton}>
                     <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
@@ -76,29 +78,28 @@ const LoginScreen = () => {
             <View style={styles.bottomContainer}>
                 <View style={styles.bottom}>
 
-                    <View>
-                        <Text> This is where the switch will go</Text>
-                        
-                        <TouchableOpacity onPress={toggleTheme}>
-                        <Text style={{ color: theme.textColor }}>Toggle colouublind mode</Text>
-                        </TouchableOpacity>
+                <View style={styles.container}>                       
+                    <TouchableOpacity onPress={toggleTheme}>
+                    <Text style={{ color: theme.textColor }}>Toggle dark mode</Text>
+                    </TouchableOpacity> 
 
-                    </View>
-
+                </View>
 
                     <TouchableOpacity
                     onPress={() => {
                         navigation.navigate('CreateAccount');
                     }} >
-                        <Text style={styles.linkText}>Create Account</Text>
+                        <Text style={theme.linkText}>Create Account</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                     onPress={() => {
                         navigation.navigate('Debug');
                     }} >
-                        <Text style={styles.linkTextDebug}>Edit Account</Text>
+                        <Text style={theme.linkTextDebug}>Edit Account</Text>
                     </TouchableOpacity>
                 </View>
+
+                
             </View>
         </View>
         </KeyboardAvoidingView>
@@ -166,6 +167,11 @@ const styles = StyleSheet.create({
         padding: 50,
         alignItems: 'center',
         paddingBottom: 20,
+    },
+    background:{
+        flex:1,
+        resizeMode: 'cover',
+        justifyContent: 'center',
     }
 })
 export default LoginScreen;

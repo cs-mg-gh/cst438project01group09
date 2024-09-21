@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Switch } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/HomeScreen';
@@ -12,10 +12,12 @@ import FavoriteCityScreen from './screens/FavoriteCityScreen';
 import DeleteAccountScreen from './screens/DeleteAccountScreen';
 import DebugScreen from './screens/EditOptionsScreen';
 import * as SQLite from 'expo-sqlite';
-import { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { dbStart } from './db-folder/db-service';
 import { UserProvider } from './UserContext';
 import EditPasswordScreen from './screens/EditPasswordScreen';
+import {ThemeProvider} from './ThemeProvider'; 
+
 
 const Stack = createNativeStackNavigator();
 
@@ -32,11 +34,15 @@ export default function App() {
     startDB();
   },[]);
 
+
+
   
   return (
+    <ThemeProvider>
     <UserProvider>
       <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
+
         <Stack.Screen name='Home' component={HomeScreen}/>
         <Stack.Screen name='Login' component={LoginScreen}/>
         <Stack.Screen name='CreateAccount' component={CreateAccountScreen}/>
@@ -50,6 +56,7 @@ export default function App() {
       </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>
+    </ThemeProvider>
   );
 }
 

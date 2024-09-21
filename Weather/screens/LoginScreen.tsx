@@ -1,10 +1,12 @@
-import { Alert, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View, Switch, ImageBackground} from "react-native";
 import React, { useContext, useState } from 'react';
 import { useNavigation } from "@react-navigation/native";
 import { checkCredentials, getId } from "../db-folder/db-service";
 import { UserContext } from "../UserContext";
+import { ThemeContext } from './ThemeContext';
 
 const LoginScreen = () => {
+    const { theme, toggleTheme } = useContext(ThemeContext);
     const navigation = useNavigation();
     const userContext = useContext(UserContext);
     if(!userContext){
@@ -44,29 +46,30 @@ const LoginScreen = () => {
 
     return(
         <KeyboardAvoidingView
-        style={styles.container}
+        style={[styles.container, { backgroundColor: theme.backgroundColor }]}
         behavior={Platform.OS == 'ios' ? 'padding' : 'height'} 
         >
-        <View style={styles.container}>
-            <View style={styles.container}>
-            <Text style={styles.title}>Zone Weather</Text>
-                <Text style={styles.label}>Login</Text>
+        <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
+            <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
+            <Text style={[styles.title, { color: theme.textColor }]}>Zone Weather</Text>
+                <Text style={[styles.label, { color: theme.backgroundColor }]}>Login</Text>
+
                 <TextInput
-                    style={styles.input}
+                    style={ theme.input }
                     placeholder="Enter Username"
                     onChangeText={setInputUsername}
                     value={inputUsername}
                 />
 
-                <Text style={styles.label}>Password: </Text>
+                <Text style={[styles.label, { color: theme.backgroundColor }]}>Password: </Text>
                 <TextInput
-                    style={styles.input}
+                    style={theme.input}
                     placeholder="Enter Password"
                     secureTextEntry = {true}
                     onChangeText={setPassword}
                     value={password}
                 />
-                <TouchableOpacity style={styles.button} 
+                <TouchableOpacity style={theme.button} 
                 onPress={loginButton}>
                     <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
@@ -74,19 +77,29 @@ const LoginScreen = () => {
 
             <View style={styles.bottomContainer}>
                 <View style={styles.bottom}>
+
+                <View style={styles.container}>                       
+                    <TouchableOpacity onPress={toggleTheme}>
+                    <Text style={{ color: theme.textColor }}>Toggle dark mode</Text>
+                    </TouchableOpacity> 
+
+                </View>
+
                     <TouchableOpacity
                     onPress={() => {
                         navigation.navigate('CreateAccount');
                     }} >
-                        <Text style={styles.linkText}>Create Account</Text>
+                        <Text style={theme.linkText}>Create Account</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                     onPress={() => {
                         navigation.navigate('Debug');
                     }} >
-                        <Text style={styles.linkTextDebug}>Edit Account</Text>
+                        <Text style={theme.linkTextDebug}>Edit Account</Text>
                     </TouchableOpacity>
                 </View>
+
+                
             </View>
         </View>
         </KeyboardAvoidingView>
@@ -154,6 +167,11 @@ const styles = StyleSheet.create({
         padding: 50,
         alignItems: 'center',
         paddingBottom: 20,
+    },
+    background:{
+        flex:1,
+        resizeMode: 'cover',
+        justifyContent: 'center',
     }
 })
 export default LoginScreen;

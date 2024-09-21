@@ -1,11 +1,12 @@
 import { Alert, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigation } from "@react-navigation/native";
-
+import { ThemeContext } from './ThemeContext';
 import { checkIfUserExists, deleteUser, updatePasswordDB } from "../db-folder/db-service";
 
 
 const DeleteAccountScreen = () => {
+    const { theme, toggleTheme } = useContext(ThemeContext);
     const navigation = useNavigation();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')

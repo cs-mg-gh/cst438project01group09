@@ -2,8 +2,10 @@ import { resetDB } from "../db-folder/db-service";
 import { useNavigation } from "@react-navigation/native"
 import * as SQLite from 'expo-sqlite';
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { ThemeContext } from './ThemeContext';
 
 const EditOptionsScreen = () => {
+    
     const navigation = useNavigation();
 
     const debugReset = async() =>{

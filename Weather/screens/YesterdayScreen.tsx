@@ -1,5 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image, ImageBackground, TextInput, Button } from 'react-native';
 import React, {useState, useEffect, useCallback, useContext } from 'react';
+import { ThemeContext } from './ThemeContext';
+const WEATHERSTACK_KEY = getWeatherStackKey();
 import { getFavCities, getId } from '../db-folder/db-service';
 import { UserContext } from '../UserContext';
 import { Picker } from '@react-native-picker/picker';
@@ -79,7 +81,7 @@ async function getYesterdayWeather(zipCode: string) {
 }
 
 const YesterdayScreen = () => {
-
+    const { theme, toggleTheme } = useContext(ThemeContext);
     const [tempZipCode, setTempZipCode] = useState(""); //used for text input 
     const [zipCode, setZipCode] = useState("93955"); //it turns out the query does not strictly need to be a zip code - it can be a city too
     

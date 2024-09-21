@@ -1,9 +1,12 @@
+
+import { ThemeContext } from './ThemeContext';
 import { StyleSheet, Text, TouchableOpacity, View, Image, ImageBackground, TextInput, Button } from 'react-native';
 import React, {useState, useEffect, useCallback, useContext } from 'react';
 import {getWeatherStackKey} from '../App';
 import { getFavCities, getId } from '../db-folder/db-service';
 import { UserContext } from '../UserContext';
 import { Picker } from '@react-native-picker/picker';
+
 
 const WEATHERSTACK_KEY = "1f82af4eb8bc73b81ec040400d969726";
 
@@ -63,9 +66,11 @@ async function getCurrentWeather(zipCode: string) {
 }
 
 const CurrentWeatherScreen = () => {
+
+    const { theme, toggleTheme } = useContext(ThemeContext);
+
     const [tempZipCode, setTempZipCode] = useState(""); //used for text input 
     const [zipCode, setZipCode] = useState("93955");
-
     const [weatherData, setWeatherData] = useState({
         chanceofrain: 0,
         feelslike: 0,

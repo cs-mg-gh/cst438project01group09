@@ -28,6 +28,9 @@ const HomeScreen = () => {
     const FavoriteButton = () =>{
         navigation.navigate('FavoriteCity');
     }
+    const SearchByRegionButton = () =>{
+        navigation.navigate('SearchByRegion');
+    }
 
     return (
 
@@ -48,6 +51,11 @@ const HomeScreen = () => {
             onPress={FavoriteButton} >
                 <Text style={[styles.buttonText, { color: theme.backgroundColor }]}>Add Favorite City</Text>
             </TouchableOpacity>
+        
+            <TouchableOpacity style={styles.screenButton}
+            onPress={SearchByRegionButton} >
+                <Text style={styles.buttonText}>Search By Region</Text>
+            </TouchableOpacity>
 
             < View style={styles.container}>                       
                 <TouchableOpacity onPress={toggleTheme}>
@@ -55,8 +63,6 @@ const HomeScreen = () => {
                 </TouchableOpacity> 
 
             </View>
-
-
         </View>
     );
 };

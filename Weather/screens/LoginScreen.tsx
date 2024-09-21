@@ -1,7 +1,7 @@
 import { Alert, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View, Switch, ImageBackground} from "react-native";
 import React, { useContext, useState } from 'react';
 import { useNavigation } from "@react-navigation/native";
-import { checkCredentials } from "../db-folder/db-service";
+import { checkCredentials, getId } from "../db-folder/db-service";
 import { UserContext } from "../UserContext";
 import { ThemeContext } from './ThemeContext';
 
@@ -13,6 +13,7 @@ const LoginScreen = () => {
         throw new Error('Error');
     }
     const { setUsername } = userContext;
+    const { setUserId } = userContext;
 
     const [inputUsername, setInputUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -28,6 +29,9 @@ const LoginScreen = () => {
             let user = await checkCredentials(trimmedUsername, trimmedPassword);
             if(user && user.username == trimmedUsername && user.password == trimmedPassword){
                 setUsername(trimmedUsername);
+                let idObj = await getId(trimmedUsername);
+                // console.log(`ID OBJ: ${idObj}`);
+                setUserId(idObj);
                 navigation.navigate('Home');
             }else{
                 Alert.alert("Invalid credentials")
@@ -46,14 +50,10 @@ const LoginScreen = () => {
         behavior={Platform.OS == 'ios' ? 'padding' : 'height'} 
         >
         <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
-
-        {/* <ImageBackground source={require('../assets/cloudsWhite.png')}
-        style={styles.background}
-        ></ImageBackground> */}
-
             <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
-            <Text style={[styles.title, { color: theme.textColor }]}>Yesterday's Weather</Text>
+            <Text style={[styles.title, { color: theme.textColor }]}>Zone Weather</Text>
                 <Text style={[styles.label, { color: theme.backgroundColor }]}>Login</Text>
+
                 <TextInput
                     style={ theme.input }
                     placeholder="Enter Username"

@@ -52,10 +52,12 @@ const LoginScreen = () => {
         style={[styles.container, { backgroundColor: theme.backgroundColor }]}
         behavior={Platform.OS == 'ios' ? 'padding' : 'height'} 
         >
+
         <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
             <View style={[styles.formContainer, { backgroundColor: theme.backgroundColor }]}>
-            <Text style={[styles.title, { color: theme.textColor }]}>Yesterday's Weather</Text>
+            <Text style={[styles.title, { color: theme.textColor }]}>Zone Weather</Text>
                 <Text style={[styles.label, { color: theme.textColor }]}>Enter Login:</Text>
+
                 <TextInput
                     style={theme.input}
                     placeholder="Enter Username"

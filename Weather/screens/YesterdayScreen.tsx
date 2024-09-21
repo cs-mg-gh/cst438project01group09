@@ -1,18 +1,22 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image, ImageBackground, TextInput, Button } from 'react-native';
 import React, {useState, useEffect, useCallback, useContext } from 'react';
-import {getWeatherStackKey} from '../App';
 import { ThemeContext } from './ThemeContext';
-
 const WEATHERSTACK_KEY = getWeatherStackKey();
+import { getFavCities, getId } from '../db-folder/db-service';
+import { UserContext } from '../UserContext';
+import { Picker } from '@react-native-picker/picker';
 
+const WEATHERSTACK_KEY="1f82af4eb8bc73b81ec040400d969726";
 
 async function getYesterdayWeather(zipCode: string) {
     
     const url = new URL('http://api.weatherstack.com/historical')
     url.searchParams.append('access_key', WEATHERSTACK_KEY);
-    url.searchParams.append('query', zipCode) //zip or city location chages based on text input 
-    //console.log("The zip code currently set is "+ zipCode); //to test the zip is correct 
-
+    if(zipCode == ""){
+        url.searchParams.append('query', "93955");
+    }else{
+        url.searchParams.append('query', zipCode) //zip or city location chages based on text input 
+    }
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
@@ -59,6 +63,8 @@ async function getYesterdayWeather(zipCode: string) {
         };
     } catch (error) {
         console.error('Error fetching weather data:', error);
+        alert("Invalid Zip or City");
+        console.log(`${zipCode} is not a valid zip or city`);
     }
     return {'chanceofrain': 0,
             'feelslike': 0,
@@ -77,7 +83,7 @@ async function getYesterdayWeather(zipCode: string) {
 const YesterdayScreen = () => {
     const { theme, toggleTheme } = useContext(ThemeContext);
     const [tempZipCode, setTempZipCode] = useState(""); //used for text input 
-    const [zipCode, setZipCode] = useState(""); //it turns out the query does not strictly need to be a zip code - it can be a city too
+    const [zipCode, setZipCode] = useState("93955"); //it turns out the query does not strictly need to be a zip code - it can be a city too
     
     const [weatherData, setWeatherData] = useState({
         chanceofrain: 0,
@@ -93,27 +99,76 @@ const YesterdayScreen = () => {
         windgust: 0,
         location: '',
     });
+    const [cities, setCities] = useState<string[]>([]);
+    const [selectedCity, setSelectedCity] = useState<string>("");
+
+    const userContext = useContext(UserContext);
+    if(!userContext){
+        throw new Error('User Context Error');
+    }
+    const { userId } = userContext;
+    
 
     useEffect(() => {
-        // Automatically fetch weather data when component mounts
+        const fetchCities = async () =>{
+            if(userContext){
+                let cities = await getFavCities(userId);
+                let strCities = cities?.toString()
+                console.log(`Cities: `,strCities);
+                const arrCities = strCities?.split(',').map(city => city.trim())
+                setCities(arrCities);
+                if(arrCities.length > 0){
+                    setSelectedCity(arrCities[0])
+                }
+            }
+        };
+        fetchCities();
+    }, [userId]);
+
+
+    useEffect(() => {
         const fetchWeather = async () => {
             const data = await getYesterdayWeather(zipCode); 
             setWeatherData(data);
         };
         fetchWeather();
-    }, [zipCode]); // Dependency array: effect runs whenever zipCode changes 
+    }, [zipCode]); 
 
+    useEffect(() =>{
+        const fetchWeather = async() =>{
+            const data = await getYesterdayWeather(zipCode);
+            setWeatherData(data);
+        };
+        fetchWeather();
+    }, [])
+
+    useEffect(() =>{
+        if(selectedCity){
+            setZipCode(selectedCity);
+        }
+    }, [selectedCity]);
 
     const handleWeatherButton = () => { //sets zip code to the temp zip code when button pressed
         setZipCode(tempZipCode);
     }
 
+
+
     return (
         <View style={styles.container}>
+        <View>
+                <Text style={styles.title}>Yesterday's Weather</Text>
+            </View>
             
-            <View>
-
-            <Text>Yesterday's Weather!</Text>
+            <View style={styles.inputContainer}>
+                <Picker
+                    selectedValue={selectedCity}
+                    style={styles.picker}
+                    onValueChange={(itemValue) => setSelectedCity(itemValue)}>
+                     {cities.map((city, index) => (
+                        <Picker.Item key={index} label={city} value={city} />
+                    ))}
+                </Picker>
 
                 <TextInput 
                     placeholder="Enter zip or city"
@@ -124,12 +179,12 @@ const YesterdayScreen = () => {
                     //keyboardType='numeric' //optional zip code only input 
                 >
             </TextInput>
-              
-            <Button title="Get Weather" onPress={handleWeatherButton} /> 
+              <TouchableOpacity onPress={handleWeatherButton}
+              style={styles.yesterdayButton}>
+                    <Text style={styles.buttonText}>Go</Text>
+              </TouchableOpacity>
             </View>
-            <View>
-                <Text style={styles.title}>Yesterday's Weather</Text>
-            </View>
+
             
             <Text style={styles.locationName}>{weatherData.location}</Text>
             <View>
@@ -155,12 +210,27 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
+    },inputContainer:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 10,
+        marginVertical: 10,
+    },
+    picker:{
+        height: 50,
+        width: 150,
+        marginHorizontal: 10,
+        flex: 1
     },
     yesterdayButton: {
-        backgroundColor: 'blue',
+        backgroundColor: 'teal',
         padding: 10,
+        paddingVertical: 8,
+        marginVertical: 10,
+        marginHorizontal: 10,
         borderRadius: 5,
-        width: 200, 
+        width: 50, 
+        height: 50,
         alignItems: 'center',
     },
     buttonText: {
@@ -170,14 +240,13 @@ const styles = StyleSheet.create({
     textInput: {
         borderBottomWidth: 5,
         padding: 5,
-        paddingVertical: 20,
-        marginVertical: 50,
+        paddingVertical: 8,
+        marginVertical: 10,
         marginHorizontal: 10,
         backgroundColor: "#fff",
-        fontSize: 19,
+        fontSize: 14,
         borderRadius: 10,
         borderBottomColor: '#ffde00',
-
     },
     title: {
         fontWeight: "bold",

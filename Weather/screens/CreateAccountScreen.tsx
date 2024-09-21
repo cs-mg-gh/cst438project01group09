@@ -1,7 +1,6 @@
 import { Alert, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import React, { useState, useContext } from 'react';
 import { useNavigation } from "@react-navigation/native";
-
 import { addUsers, checkIfUserExists } from "../db-folder/db-service";
 import { ThemeContext } from './ThemeContext';
 
@@ -83,9 +82,9 @@ const LoginScreen = () => {
                     value={rePassword}
                 />
 
-                <TouchableOpacity style={theme.button} 
+                <TouchableOpacity style={theme.screenButton} 
                 onPress={createButton}>
-                    <Text style={styles.buttonText}>Create Account</Text>
+                    <Text style={[styles.buttonText, { color: theme.backgroundColor }]}>Login</Text>
                 </TouchableOpacity>
 
             </View>
@@ -118,7 +117,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 100,
     },title:{
-        fontSize: 25,
+        fontSize: 30,
         fontFamily: 'monospace',
         paddingBottom: 20,
         paddingTop: 20,

@@ -39,7 +39,7 @@ export const themes = {
         
     },
     screenButton: {
-        backgroundColor: 'blue',
+        backgroundColor: 'teal',
         padding: 10,
         borderRadius: 5,
         width: 200, 

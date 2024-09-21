@@ -52,8 +52,8 @@ const LoginScreen = () => {
         <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
             <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
             <Text style={[styles.title, { color: theme.textColor }]}>Zone Weather</Text>
-                <Text style={[styles.label, { color: theme.backgroundColor }]}>Login</Text>
-
+                {/* <Text style={[styles.label, { color: theme.backgroundColor }]}>Login</Text> */}
+                <Text style={[styles.label, { color: theme.textColor }]}>Enter Username: </Text>
                 <TextInput
                     style={ theme.input }
                     placeholder="Enter Username"
@@ -61,7 +61,7 @@ const LoginScreen = () => {
                     value={inputUsername}
                 />
 
-                <Text style={[styles.label, { color: theme.backgroundColor }]}>Password: </Text>
+                <Text style={[styles.label, { color: theme.textColor }]}>Enter Password: </Text>
                 <TextInput
                     style={theme.input}
                     placeholder="Enter Password"
@@ -69,9 +69,9 @@ const LoginScreen = () => {
                     onChangeText={setPassword}
                     value={password}
                 />
-                <TouchableOpacity style={theme.button} 
+                <TouchableOpacity style={theme.screenButton} 
                 onPress={loginButton}>
-                    <Text style={styles.buttonText}>Login</Text>
+                    <Text style={[styles.buttonText, { color: theme.backgroundColor }]}>Login</Text>
                 </TouchableOpacity>
             </View>
 
@@ -79,8 +79,8 @@ const LoginScreen = () => {
                 <View style={styles.bottom}>
 
                 <View style={styles.container}>                       
-                    <TouchableOpacity onPress={toggleTheme}>
-                    <Text style={{ color: theme.textColor }}>Toggle dark mode</Text>
+                    <TouchableOpacity style={theme.screenButton} onPress={toggleTheme}>
+                    <Text style={[styles.buttonText, { color: theme.backgroundColor }]}>Toggle dark mode</Text>
                     </TouchableOpacity> 
 
                 </View>
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
         marginBottom: 15,
     },
     title:{
-        fontSize: 25,
+        fontSize: 30,
         fontFamily: 'monospace',
         paddingBottom: 25,
         paddingTop: 20

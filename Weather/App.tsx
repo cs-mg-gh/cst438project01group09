@@ -16,6 +16,8 @@ import { useState, useEffect } from 'react';
 import { dbStart } from './db-folder/db-service';
 import { UserProvider } from './UserContext';
 import EditPasswordScreen from './screens/EditPasswordScreen';
+import SearchByRegionScreen from './screens/SearchByRegionScreen';
+import ViewCityScreen from './screens/ViewCityScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -47,6 +49,8 @@ export default function App() {
         <Stack.Screen name='Yesterday' component={YesterdayScreen}/>
         <Stack.Screen name='CurrentWeather' component={CurrentWeatherScreen}/>
         <Stack.Screen name='FavoriteCity' component={FavoriteCityScreen}/>
+        <Stack.Screen name='SearchByRegion' component={SearchByRegionScreen}/>
+        <Stack.Screen name='ViewCity' component={ViewCityScreen}/>
       </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>

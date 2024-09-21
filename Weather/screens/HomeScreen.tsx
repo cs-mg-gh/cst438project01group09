@@ -2,9 +2,12 @@
 import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { UserContext } from "../UserContext";
+import { ThemeContext } from './ThemeContext';       
 import React, { useContext, useEffect, useState, version } from 'react';        
+
         
 const HomeScreen = () => {
+    const { theme, toggleTheme } = useContext(ThemeContext);
     const navigation = useNavigation();
     const userContext = useContext(UserContext);
 
@@ -30,22 +33,36 @@ const HomeScreen = () => {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Welcome {username}!</Text>
-            <TouchableOpacity onPress={CurrentButton} style={styles.screenButton}>
-                <Text style={styles.buttonText}>Today's Weather</Text>
+
+        <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
+            <Text style={{color : theme.textColor}}>Welcome to the Home Screen!</Text>
+            <View style={theme.screenButton}>
+            <TouchableOpacity onPress={CurrentButton}>
+                <Text style={[styles.buttonText, { color: theme.backgroundColor }]}>Today's Weather</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={YesterdayButton} style={styles.screenButton}>
-                <Text style={styles.buttonText}>Yesterday's Weather</Text>
+            </View>
+            <View style={theme.screenButton}>
+            <TouchableOpacity onPress={YesterdayButton}>
+                <Text style={[styles.buttonText, { color: theme.backgroundColor }]}>Yesterday's Weather</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.screenButton}
+            </View>
+          
+             <TouchableOpacity style={theme.screenButton}
             onPress={FavoriteButton} >
-                <Text style={styles.buttonText}>Add Favorite City</Text>
+                <Text style={[styles.buttonText, { color: theme.backgroundColor }]}>Add Favorite City</Text>
             </TouchableOpacity>
+        
             <TouchableOpacity style={styles.screenButton}
             onPress={SearchByRegionButton} >
                 <Text style={styles.buttonText}>Search By Region</Text>
             </TouchableOpacity>
+
+            < View style={styles.container}>                       
+                <TouchableOpacity onPress={toggleTheme}>
+                <Text style={{ color: theme.textColor }}>Toggle dark mode</Text>
+                </TouchableOpacity> 
+
+            </View>
         </View>
     );
 };

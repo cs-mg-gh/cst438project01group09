@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const WEATHERSTACK_KEY = '8e54894ee618be06a4425cf306466952';
+const WEATHERSTACK_KEY="";
 
 const SearchByRegionScreen = () => {
     const navigation = useNavigation();

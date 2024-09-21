@@ -69,7 +69,9 @@ const EditOptionsScreen = () => {
                 }} >
                     <Text style={styles.linkText}>Account Deletion</Text>
                 </TouchableOpacity>
-            <View style={styles.bottomContainer}>
+
+                {/* For Debug Purposes */}
+            {/* <View style={styles.bottomContainer}>
 
             <TouchableOpacity style={styles.button} onPress={()=>showCities("users")}>
                 <Text style={styles.buttonText}>View Cities</Text>
@@ -83,7 +85,9 @@ const EditOptionsScreen = () => {
             <TouchableOpacity style={styles.button} onPress={()=>debugReset()}>
                 <Text style={styles.buttonText}>CLEAR DATABASE AND RESET</Text>
             </TouchableOpacity>
-            </View>
+            </View> */}
+
+
             </View>
         </View>
     );

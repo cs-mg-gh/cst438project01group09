@@ -35,7 +35,7 @@ const HomeScreen = () => {
     return (
 
         <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
-            <Text style={{color : theme.textColor}}>Welcome to the Home Screen!</Text>
+            <Text style={[styles.title, {color : theme.textColor}]}>Welcome {username}!</Text>
             <View style={theme.screenButton}>
             <TouchableOpacity onPress={CurrentButton}>
                 <Text style={[styles.buttonText, { color: theme.backgroundColor }]}>Today's Weather</Text>
@@ -52,10 +52,10 @@ const HomeScreen = () => {
                 <Text style={[styles.buttonText, { color: theme.backgroundColor }]}>Add Favorite City</Text>
             </TouchableOpacity>
         
-            <TouchableOpacity style={styles.screenButton}
+            <TouchableOpacity style={theme.screenButton}
             onPress={SearchByRegionButton} >
-                <Text style={styles.buttonText}>Search By Region</Text>
-            </TouchableOpacity>
+                <Text style={[styles.buttonText, { color: theme.backgroundColor }]}>Search by Region</Text>
+                </TouchableOpacity>
 
             < View style={styles.container}>                       
                 <TouchableOpacity onPress={toggleTheme}>

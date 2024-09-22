@@ -67,13 +67,26 @@ Diego mostly worked on the database functions of the app. This included creating
 - What is the most valuable thing you learned?
   - Getting comfortable with working with a team and communicating well is key. Using Git commands was also a good refresher
 
-### Copy Diego's format for each team member to write their own experiences
-
 ### Luke Berry
 
 1. Luke's Github: [LukeBerryCS](https://github.com/LukeBerryCS)
 2. Luke Berry's [pull requests](https://github.com/cs-mg-gh/cst438project01group09/pulls?q=is%3Apr+is%3Aclosed+author%3ALukeBerryCS)
 3. Luke Berry's [issues](https://github.com/cs-mg-gh/cst438project01group09/issues?q=is%3Aissue+is%3Aclosed+assignee%3ALukeBerryCS)
+
+Luke managed interaction with the Weatherstack API, including displaying this data on the Current and Yesterday's Weather screens. Overall, this was not a very complicated part of the app to develop, but was extremely valuable.
+
+- What was the biggest challenge?
+      Finding an API that worked well for us in this project, as many either required high financial investment, or did not output all of the data we wanted.
+- Why was it a challenge?
+      There are many different Weather APIs, and historical/forecast data is locked behind a paywall in most APIs that we looked through.
+- How was the challenge addressed?
+      Eventually, we found the Weatherstack API which produced the data we wanted in a very easily usable format, including images. We did upgrade the plan we had to get access to forecast/historical weather data.
+- Favorite / most interesting part of this project?
+      It was very interesting to me to work with real-world and real-time data. 
+- If you could do it over, what would you change?
+      I would have liked to make the entire user experience much better. I think while we display all of the relevant data we can, it lacks a real great user experience, with some of the text wrapping in ways we would prefer it not to.
+- What is the most valuable thing you learned?
+      With my prior experience working with APIs, I was able to easily get started on working with the Weather API options. Throughout the project, we switched provider's several times, which helped me become more comfortable with working with different output formats and request requirements.
 
 ### Kyle Lynn
 
@@ -107,7 +120,8 @@ Kyle mostly worked on the visual functions and a few misc components. For exampl
 ## Conclusion
 
 - How successful was the project?
-  -We did what we set out to do
+    Overall, the project was successful. While we could have improved some areas, we did build a functional app that displays weather data within the requirements of the project.
 - What was the largest victory?
-  -We had the perfect scope in mind from the outset
+    The largest victory for us was being able to get everyone to contribute at least some part of this project. Throughout the last few weeks, there were many issues with getting the project to run on certain teammates computer's, issues with APIs, and issues with getting emulators setup to run the application on our own device. By the final week, we were able to get this all sorted to work reliably. 
 - Final assessment of the project
+    In all, we had a great experience with this project. However, there are definitely things that will need to be improved in team workflow for the following projects. This will include a commitment to following along with the Agile development methodology on a consistent basis, while putting quality above speed.

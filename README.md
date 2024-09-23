@@ -1,6 +1,7 @@
 # Project 01 Retrospective and Overview: Yesterday's Weather
 
-[Github Repository](https://github.com/cs-mg-gh/cst438project01group09)
+- [Github Repository](https://github.com/cs-mg-gh/cst438project01group09)
+- [Youtube Video](https://www.youtube.com/watch?v=RcRCrChbT8c)
 
 ## Overview
 
@@ -10,7 +11,7 @@ This is a weather app that makes use of the [Weatherstack API](https://weatherst
 
 - Communication for this project was managed using our Slack groupchat as well as in-class work sessions.
 - Initially we had around 12 user stories considered for this project.
-- [Fill in once completed] stories were completed.
+- 11 user stories were completed by the end of the project.
 
 ## Project Setup
 

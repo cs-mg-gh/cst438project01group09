@@ -118,32 +118,27 @@ Kyle mostly worked on the visual functions and a few misc components. For exampl
 2. Matthew Garcia's [pull requests](https://github.com/cs-mg-gh/cst438project01group09/pulls?q=is%3Apr+is%3Aclosed+author%3Acs-mg-gh)
 3. Matthew Garcia's [issues](https://github.com/cs-mg-gh/cst438project01group09/issues?q=is%3Aissue+is%3Aclosed+assignee%3Acs-mg-gh)
 
-   Matthew mostly worked on the search engine to fetch the cities by region and display the current weather of the searched city. This feature allows the user to use the “search by region” button, the user then inputs their city via name or zip code, and the search will fetch results based on the user’s input. The user will now have the ability to select the view button, that displays the current weather of the city. From that page, the user has the option to navigate back to home button to visit the home screen. If the city does not exist, the view button to display the weather results is not available.
+Matthew mostly worked on the search engine to fetch the cities by region and display the current weather of the searched city. This feature allows the user to use the “search by region” button, the user then inputs their city via name or zip code, and the search will fetch results based on the user’s input. The user will now have the ability to select the view button, that displays the current weather of the city. From that page, the user has the option to navigate back to home button to visit the home screen. If the city does not exist, the view button to display the weather results is not available.
 
-— What was the biggest challenge?
 
-The biggest challenge making the search engine work properly to display results from the API. After completing that challenge, the next challenge was to display that current weather from the API.
+- **What was the biggest challenge?**
+  - The biggest challenge was making the search engine work properly to display results from the API. After completing that challenge, the next challenge was displaying the current weather from the API.
 
-— Why was it a challenge?
+- **Why was it a challenge?**
+  - This project was the first time I used Expo, TypeScript, and I was also learning how to use more git commands. It was an interesting experience because of the short timeframe and the app's required functionality within that small time frame.
 
-This project was the first time I used Expo, TypeScript, and learning how to use more git commands. It was an interesting experience because of the timeframe and the functionality of the app within the small time frame.
+- **How was the challenge addressed?**
+  - The challenge was addressed by reading the Expo documentation and using ChatGPT for debugging. We also communicated with each other, being transparent with our experiences and struggles, and collaborated to find a solution. Communication occurred via Slack and in-person conversations.
 
-— How was the challenge addressed?
+- **Favorite / most interesting part of this project?**
+  - My favorite part of the project was working with teammates who demonstrated leadership, accountability, respect, and communication, which created a positive environment. The most interesting part was seeing the entire project come together. It felt rewarding to be "thrown into the water" and see us all stay afloat by working as a team.
 
-Reading the Expo documentation and using ChatGPT for debugging, and also communicating with each other, being transparent with our experience and struggles, and figuring out a solution to work as a team to get the project done. The challenge was addressed via slack and 
-in person conversations.
+- **If you could do it over, what would you change?**
+  - If I could start over, the first thing I would do is carefully read each prompt, ask questions about git and how to install React Native, and watch more tutorials on TypeScript.
 
-—Favorite / most interesting part of this project?
+- **What is the most valuable thing you learned?**
+  - The most valuable lesson from this project is that it was a learning experience for each teammate. We communicated well, addressed every issue, and always found a solution. When working as a team, stress is reduced, which leads to more productivity.
 
-My favorite part of the project is working with teammates that hold leadership, accountability, respect, and communication, which created positive environment. The most interesting part of this project was seeing the entire work come along. It is a good feeling that we all got thrown into the water, and we all swam to stay afloat.
-
-— If you could do it over, what would you change?
-
-If I can start over, the first thing I would do is read each prompt, ask questions about git, how to install react native, and watch more tutorials on TypeScript.
-
-— What is the most valuable thing you learned?
-
-The most valuable thing that I learned is that this entire project was that it’s a learning experience for each teammate. We communicated well, addressed each issue we had about the project, and always came to a solution. When you work as a team, there is less stress and leads to more productivity.
 
 ## Conclusion
 
